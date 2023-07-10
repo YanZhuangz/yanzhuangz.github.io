@@ -24,7 +24,7 @@
 
 高级语言经过编译后，生成class二进制文件，同一份文件，可在不同平台上的JVM容器中运行。
 
-![JVM](/blob/master/JavaVirtualMachine.assets/JVM.jpg)
+![JVM](JavaVirtualMachine.assets/JVM.jpg)
 
 
 

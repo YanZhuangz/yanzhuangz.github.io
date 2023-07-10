@@ -2,679 +2,687 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>JavaVirtualMachine</title>
+
+<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; --title-bar-height:20px; }
+.mac-os-11 { --title-bar-height:28px; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; inset: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 36px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:last-child { margin-bottom: 0.5rem; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-fences-adv-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li blockquote { margin: 1rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  .typora-export #write { break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  .is-mac table { break-inside: avoid; }
+  .typora-export-show-outline .typora-export-sidebar { display: none; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+.MathJax_ref { fill: currentcolor; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.6; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+.md-expand mark .md-meta { opacity: 0.3 !important; }
+mark .md-meta { color: rgb(0, 0, 0); }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+}
+.md-diagram-panel .messageText { stroke: none !important; }
+.md-diagram-panel .start-state { fill: var(--node-fill); }
+.md-diagram-panel .edgeLabel rect { opacity: 1 !important; }
+.md-fences.md-fences-math { font-size: 1em; }
+.md-fences-advanced:not(.md-focus) { padding: 0px; white-space: nowrap; border: 0px; }
+.md-fences-advanced:not(.md-focus) { background: inherit; }
+.typora-export-show-outline .typora-export-content { max-width: 1440px; margin: auto; display: flex; flex-direction: row; }
+.typora-export-sidebar { width: 300px; font-size: 0.8rem; margin-top: 80px; margin-right: 18px; }
+.typora-export-show-outline #write { --webkit-flex:2; flex: 2 1 0%; }
+.typora-export-sidebar .outline-content { position: fixed; top: 0px; max-height: 100%; overflow: hidden auto; padding-bottom: 30px; padding-top: 60px; width: 300px; }
+@media screen and (max-width: 1024px) {
+  .typora-export-sidebar, .typora-export-sidebar .outline-content { width: 240px; }
+}
+@media screen and (max-width: 800px) {
+  .typora-export-sidebar { display: none; }
+}
+.outline-content li, .outline-content ul { margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; list-style: none; }
+.outline-content ul { margin-top: 0px; margin-bottom: 0px; }
+.outline-content strong { font-weight: 400; }
+.outline-expander { width: 1rem; height: 1.42857rem; position: relative; display: table-cell; vertical-align: middle; cursor: pointer; padding-left: 4px; }
+.outline-expander::before { content: ""; position: relative; font-family: Ionicons; display: inline-block; font-size: 8px; vertical-align: middle; }
+.outline-item { padding-top: 3px; padding-bottom: 3px; cursor: pointer; }
+.outline-expander:hover::before { content: ""; }
+.outline-h1 > .outline-item { padding-left: 0px; }
+.outline-h2 > .outline-item { padding-left: 1em; }
+.outline-h3 > .outline-item { padding-left: 2em; }
+.outline-h4 > .outline-item { padding-left: 3em; }
+.outline-h5 > .outline-item { padding-left: 4em; }
+.outline-h6 > .outline-item { padding-left: 5em; }
+.outline-label { cursor: pointer; display: table-cell; vertical-align: middle; text-decoration: none; color: inherit; }
+.outline-label:hover { text-decoration: underline; }
+.outline-item:hover { border-color: rgb(245, 245, 245); background-color: var(--item-hover-bg-color); }
+.outline-item:hover { margin-left: -28px; margin-right: -28px; border-left: 28px solid transparent; border-right: 28px solid transparent; }
+.outline-item-single .outline-expander::before, .outline-item-single .outline-expander:hover::before { display: none; }
+.outline-item-open > .outline-item > .outline-expander::before { content: ""; }
+.outline-children { display: none; }
+.info-panel-tab-wrapper { display: none; }
+.outline-item-open > .outline-children { display: block; }
+.typora-export .outline-item { padding-top: 1px; padding-bottom: 1px; }
+.typora-export .outline-item:hover { margin-right: -8px; border-right: 8px solid transparent; }
+.typora-export .outline-expander::before { content: "+"; font-family: inherit; top: -1px; }
+.typora-export .outline-expander:hover::before, .typora-export .outline-item-open > .outline-item > .outline-expander::before { content: "−"; }
+.typora-export-collapse-outline .outline-children { display: none; }
+.typora-export-collapse-outline .outline-item-open > .outline-children, .typora-export-no-collapse-outline .outline-children { display: block; }
+.typora-export-no-collapse-outline .outline-expander::before { content: "" !important; }
+.typora-export-show-outline .outline-item-active > .outline-item .outline-label { font-weight: 700; }
+.md-inline-math-container mjx-container { zoom: 0.95; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; outline: 0px; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: auto hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 10px; z-index: 3; overflow-y: hidden; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; inset: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+span.cm-underlined { text-decoration: underline; }
+span.cm-strikethrough { text-decoration: line-through; }
+.cm-tw-syntaxerror { color: rgb(255, 255, 255); background-color: rgb(153, 0, 0); }
+.cm-tw-deleted { text-decoration: line-through; }
+.cm-tw-header5 { font-weight: 700; }
+.cm-tw-listitem:first-child { padding-left: 10px; }
+.cm-tw-box { border-style: solid; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px; border-color: inherit; border-top-width: 0px !important; }
+.cm-tw-underline { text-decoration: underline; }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/* open-sans-regular - latin-ext_latin */
+  /* open-sans-italic - latin-ext_latin */
+    /* open-sans-700 - latin-ext_latin */
+    /* open-sans-700italic - latin-ext_latin */
+  html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans", "Helvetica Neue", Helvetica, Arial, 'Segoe UI Emoji', sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+
+@media only screen and (min-width: 1400px) {
+	#write {
+		max-width: 1024px;
+	}
+}
+
+@media only screen and (min-width: 1800px) {
+	#write {
+		max-width: 1200px;
+	}
+}
+
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+
+/*@media print {
+    .typora-export h1,
+    .typora-export h2 {
+        border-bottom: none;
+        padding-bottom: initial;
+    }
+
+    .typora-export h1::after,
+    .typora-export h2::after {
+        content: "";
+        display: block;
+        height: 100px;
+        margin-top: -96px;
+        border-top: 1px solid #eee;
+    }
+}*/
+
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    margin: 0;
+    padding: 6px 13px;
+}
+table td {
+    border: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 6px 13px;
+}
+table th:first-child,
+table td:first-child {
+    margin-top: 0;
+}
+table th:last-child,
+table td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+/*.html-for-mac {
+    --item-hover-bg-color: #E6F0FE;
+}*/
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+    opacity: 0.4;
+}
+
+.ty-preferences .window-content {
+    background-color: #fafafa;
+}
+
+.ty-preferences .nav-group-item.active {
+    color: white;
+    background: #999;
+}
+
+.menu-item-container a.menu-style-btn {
+    background-color: #f5f8fa;
+    background-image: linear-gradient( 180deg , hsla(0, 0%, 100%, 0.8), hsla(0, 0%, 100%, 0)); 
+}
+
+
+
+</style><title>JavaVirtualMachine</title>
 </head>
-<body><div>[TOC]</div>
-<h1 id='1-jvm介绍'>1. JVM介绍</h1>
-<h2 id='11-什么是jvm'>1.1 什么是JVM</h2>
-<blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-1.html'>Chapter 1. Introduction (oracle.com)</a></p>
-<h2 id='the-java-virtual-machine'>The Java Virtual Machine</h2>
-<p>The Java Virtual Machine is the cornerstone of the Java platform. It is the component of the technology responsible for its hardware- and operating system-independence, the small size of its compiled code, and its ability to protect users from malicious programs.</p>
-<p>The Java Virtual Machine is an abstract computing machine. Like a real computing machine, it has an instruction set and manipulates various memory areas at run time. It is reasonably common to implement a programming language using a virtual machine; the best-known virtual machine may be the P-Code machine of UCSD Pascal.</p>
-<p>The first prototype implementation of the Java Virtual Machine, done at Sun Microsystems, Inc., emulated the Java Virtual Machine instruction set in software hosted by a handheld device that resembled a contemporary Personal Digital Assistant (PDA). Oracle&#39;s current implementations emulate the Java Virtual Machine on mobile, desktop and server devices, but the Java Virtual Machine does not assume any particular implementation technology, host hardware, or host operating system. It is not inherently interpreted, but can just as well be implemented by compiling its instruction set to that of a silicon CPU. It may also be implemented in microcode or directly in silicon.</p>
-<p>The Java Virtual Machine knows nothing of the Java programming language, only of a particular binary format, the file format. A file contains Java Virtual Machine instructions (or <em>bytecodes</em>) and a symbol table, as well as other ancillary information. <code>class``class</code></p>
-<p>For the sake of security, the Java Virtual Machine imposes strong syntactic and structural constraints on the code in a file. However, any language with functionality that can be expressed in terms of a valid file can be hosted by the Java Virtual Machine. Attracted by a generally available, machine-independent platform, implementors of other languages can turn to the Java Virtual Machine as a delivery vehicle for their languages. <code>class``class</code></p>
-<p>The Java Virtual Machine specified here is compatible with the Java SE 17 platform, and supports the Java programming language specified in <em>The Java Language Specification, Java SE 17 Edition</em>.</p>
-</blockquote>
-<p>简单理解：</p>
-<p>高级语言经过编译后，生成class二进制文件，同一份文件，可在不同平台上的JVM容器中运行。</p>
-<p><img src=".\JavaVirtualMachine.assets\JVM.jpg" referrerpolicy="no-referrer" alt="JVM"></p>
-<p>&nbsp;</p>
-<p>计算机组成结构：</p>
-<ul>
-<li><p>输入设备</p>
-</li>
-<li><p>控制器</p>
-</li>
-<li><p>运算器</p>
-</li>
-<li><p>存储器</p>
-</li>
-<li><p>输出设备</p>
-<p><img src=".\JavaVirtualMachine.assets\计算机组成结构.jpg" referrerpolicy="no-referrer" alt="计算机组成结构"></p>
-</li>
-
-</ul>
-<p>那么Java虚拟机对比物理机</p>
-<ul>
-<li>Class文件类比输入设备</li>
-<li>CPU指令集类比输出设备</li>
-<li>JVM类比存储器、控制器、运算器等</li>
-
-</ul>
-<h2 id='12-jvm产品'>1.2 JVM产品</h2>
-<blockquote><p>最常用的目前是HotSpot，可以通关<code>java -version</code>命令查看</p>
-</blockquote>
-<p><strong>Oracle</strong>：HotSpot、JRockit</p>
-<p><strong>Ali</strong>：TaobaoVM</p>
-<p><strong>Zual</strong>：Zing</p>
-<h2 id='13-jdk--jre--jvm'>1.3 JDK / JRE / JVM</h2>
-<blockquote><p><a href='https://docs.oracle.com/javase/8/docs/index.html'>Java Platform Standard Edition 8 Documentation (oracle.com)</a></p>
-<p><img src=".\JavaVirtualMachine.assets\java8_docs.png" referrerpolicy="no-referrer" alt="Java8_docs"></p>
-</blockquote>
-<h2 id='14-结合jdk理解jvm'>1.4 结合JDK理解JVM</h2>
-<ol start='' >
-<li>能把Class文件翻译成不同平台的CPU指令集</li>
-<li>也是 Write Once Run Anywhere的保证</li>
-
-</ol>
-<p><img src=".\JavaVirtualMachine.assets\Write Once Run Anywhere.jpg" referrerpolicy="no-referrer" alt="Write Once Run Anywhere"></p>
-<h2 id='15-hotspot-jvm-architecture'>1.5 HotSpot JVM Architecture</h2>
-<blockquote><p><a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'>Getting Started with the G1 Garbage Collector (oracle.com)</a></p>
-</blockquote>
-<p>JVM 的主要组件包括类装入器（Class Loader）、运行时数据区域（Runtime Data Areas）和执行引擎（Execution Engine）。</p>
-<p><img src=".\JavaVirtualMachine.assets\HotSpot JVM Architecture.PNG" referrerpolicy="no-referrer" alt="HotSpot JVM Architecture"></p>
-<h1 id='2-class-file'>2. Class File</h1>
-<h2 id='21-java-source'>2.1 Java Source</h2>
-<blockquote><p>可以运行于JVM的编程语言有Java、Kotlin、Groovy 等</p>
-</blockquote>
-<pre><code class='language-java' lang='java'>public class User {
-
-    private Integer age;
-
-    private String name = &quot;zhangsan&quot;;
-
-    private Double salary = 100.0;
-
-    public void say() {
-        System.out.println(name + &quot;Say: ...&quot;);
-    }
-
-    public static Integer calc(Integer p1, Integer p2) {
-        p1 = 3;
-        Integer result = p1 + p2;
-        return result;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(calc(1, 2));
-    }
-}
-</code></pre>
-<h2 id='22-early-compile'>2.2 Early Compile</h2>
-<blockquote><p><a href='https://openjdk.org/groups/compiler/doc/compilation-overview/index.html'>Compilation Overview (openjdk.org)</a></p>
-<blockquote><p>The process of compiling a set of source files into a corresponding set of class files is not a simple one, but can be generally divided into three stages. Different parts of source files may proceed through the process at different rates, on an &quot;as needed&quot; basis.</p>
-<p><img src=".\JavaVirtualMachine.assets\Compilation Overview.png" referrerpolicy="no-referrer" alt="Compilation Overview"></p>
-<p>This process is handled by the class.<code>JavaCompiler</code></p>
-<ol start='' >
-<li>All the source files specified on the command line are read, parsed into syntax trees, and then all externally visible definitions are entered into the compiler&#39;s symbol tables.</li>
-<li>All appropriate annotation processors are called. If any annotation processors generate any new source or class files, the compilation is restarted, until no new files are created.</li>
-<li>Finally, the syntax trees created by the parser are analyzed and translated into class files. During the course of the analysis, references to additional classes may be found. The compiler will check the source and class path for these classes; if they are found on the source path, those files will be compiled as well, although they will not be subject to annotation processing.</li>
-
-</ol>
-</blockquote>
-</blockquote>
-<p>Java文件编译过程包括两个阶段：</p>
-<ul>
-<li>第一阶段是在编译阶段编译成Java字节码的过程，有些书籍中叫前端编译器，如Oracle的javac编译器；</li>
-<li>第二阶段是在运行时，通过JVM的编译优化组件，对代码中的部分代码编译成本地代码，即JIT编译，如HotSpot中的C1、C2编译器（ Thus the threads used by client JIT compiler are called c1 compiler threads. Threads used by the server JIT compiler are called c2 compiler threads.）。</li>
-
-</ul>
-<p>编译源码文件： User.java -&gt; User.class</p>
-<p><code>javac .\User.java</code></p>
-<p><img src=".\JavaVirtualMachine.assets\Java&nbsp;Compile.jpg" referrerpolicy="no-referrer" alt="Java Compile"></p>
-<h2 id='23-class-format'>2.3 Class Format</h2>
-<blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html'>Chapter 4. The class File Format (oracle.com)</a></p>
-</blockquote>
-<h2 id='24-analyse'>2.4 Analyse</h2>
-<blockquote><p>JVM加载解释映射，可参考 2.3 官网解释。</p>
-</blockquote>
-<h2 id='25-反汇编'>2.5 反汇编</h2>
-<blockquote><p>JDK自带命令 <code>javap -h</code>进行番编译，查看字节码信息和指令信息</p>
-<pre><code class='language-shell' lang='shell'>javap -v -c -p User.class &gt; User.txt
-</code></pre>
-</blockquote>
-<p>JVM相对于class文件来说可以理解为操作系统；</p>
-<p>Class文件相对与JVM来说可以理解为汇编语言或机器语言</p>
-<h1 id='3-类加载机制'>3. 类加载机制</h1>
-<blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html'>Chapter 5. Loading, Linking, and Initializing (oracle.com)</a></p>
-<blockquote><p>The Java Virtual Machine dynamically loads, links and initializes classes and interfaces. Loading is the process of finding the binary representation of a class or interface type with a particular name and <em>creating</em> a class or interface from that binary representation. Linking is the process of taking a class or interface and combining it into the run-time state of the Java Virtual Machine so that it can be executed. Initialization of a class or interface consists of executing the class or interface initialization method <code>&lt;clinit&gt;</code></p>
-</blockquote>
-</blockquote>
-<h2 id='31-loading'>3.1 Loading</h2>
-<p>&nbsp;</p>
-<h3 id='311-classloader'>3.1.1 ClassLoader</h3>
-<ul>
-<li><p>Bootstrap ClassLoader（启动类加载器）</p>
-<blockquote><p>负责加载<code>$JAVA_HOME中jre/lib/rt.jar</code>里所有的class，加载<code>System.getProperty(&quot;sun.boot.class.path&quot;)</code>所指定的路径或jar。</p>
-</blockquote>
-</li>
-<li><p>Extension ClassLoader（标准扩展类加载器） </p>
-<blockquote><p>负责加载java平台中扩展功能的一些jar包，</p>
-<p>包括$JAVA_HOME中<code>jre/lib/*.jar</code>或<code>-Djava.ext.dirs</code>指定目录下的jar包，</p>
-<p>加载<code>System.getProperty(&quot;java.ext.dirs&quot;)</code>所指定的路径或jar。</p>
-</blockquote>
-</li>
-<li><p>Application ClassLoader（系统类加载器）</p>
-<blockquote><p>负责加载ClassLoader中指定的jar包及目录中class </p>
-</blockquote>
-</li>
-<li><p>Custom ClassLoader（自定义加载器）</p>
-<blockquote><p>属于应用程序根据自身需要自定义的ClassLoader，如Tomcat、JBoss都会根据j2ee规范自行实现。</p>
-</blockquote>
-</li>
-
-</ul>
-<p><img src=".\JavaVirtualMachine.assets\ClassLoader.jpg" referrerpolicy="no-referrer" alt="ClassLoader"></p>
-<h3 id='312-双亲委派机制'>3.1.2 双亲委派机制</h3>
-<ol start='' >
-<li><p>检查某个类是否已经加载</p>
-<blockquote><p><em><strong>自底向上</strong></em></p>
-<p>从Custom ClassLoader到Bootstrap ClassLoader逐层检查，只要某个ClassLoader已加</p>
-<p>载，就视为已加载此类，保证此类所有ClassLoader加载一次。</p>
-</blockquote>
-</li>
-<li><p>加载</p>
-<blockquote><p><em><strong>自顶向下</strong></em></p>
-<p>也就是由上层来逐层尝试加载此类。</p>
-</blockquote>
-</li>
-
-</ol>
-<h3 id='313-代码体验'>3.1.3 代码体验</h3>
-<pre><code class='language-java' lang='java'>public static void main(String[] args) {
-    // App ClassLoader
-    System.out.println(User.class.getClassLoader());
-
-    // Ext ClassLoader
-    System.out.println(User.class.getClassLoader().getParent());
-
-    // Bootstrap ClassLoader 原生C++语言实现，此处打印null
-    System.out.println(User.class.getClassLoader().getParent().getParent());
-
-    System.out.println(String.class.getClassLoader());
-}
-</code></pre>
-<h3 id='314-破坏双亲委派'>3.1.4 破坏双亲委派</h3>
-<h4 id='3141-tomcat'>3.1.4.1 Tomcat</h4>
-<p><img src=".\JavaVirtualMachine.assets\Tomcat ClassLoader.jpg" referrerpolicy="no-referrer" alt="Tomcat ClassLoader"></p>
-<h4 id='3142-spi机制'>3.1.4.2 SPI机制</h4>
-<h4 id='3143-osgi'>3.1.4.3 OSGI</h4>
-<h2 id='32-linking'>3.2 Linking</h2>
-<h3 id='321-verification'>3.2.1 Verification</h3>
-<p>保证被加载类的正确性</p>
-<h3 id='322-preparation'>3.2.2 Preparation</h3>
-<p>为类的静态变量分配内存，并将其初始化为默认值</p>
-<h3 id='323-resolution'>3.2.3 Resolution</h3>
-<p>把类中的符号引用转换为直接引用</p>
-<h2 id='33-initialization'>3.3 Initialization</h2>
-<p>对类的静态变量，静态代码块执行初始化操作</p>
-<h1 id='4-运行时数据区'>4. 运行时数据区</h1>
-<blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5'>Chapter 2. The Structure of the Java Virtual Machine (oracle.com)</a></p>
-<blockquote><p>The Java Virtual Machine defines various run-time data areas that are used during execution of a program. Some of these data areas are created on Java Virtual Machine start-up and are destroyed only when the Java Virtual Machine exits. Other data areas are per thread. Per-thread data areas are created when a thread is created and destroyed when the thread exits.</p>
-</blockquote>
-</blockquote>
-<h2 id='41-method-area方法区'>4.1 Method Area(方法区)</h2>
-<blockquote><p>JVM运行时数据区是一种规范，真正的实现实在JDK8中就是Metaspace，在JDK6或者7中就是Perm Space</p>
-</blockquote>
-<p>方法区时各个线程共享的内存区域，在虚拟机启动时创建，虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做 Non-Heap（非堆），目的是与Java堆区分开来。</p>
-<p>用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</p>
-<h3 id='411-常量池和运行时常量池'>4.1.1 常量池和运行时常量池</h3>
-<p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-4.html#jvms-4.4'>The Constant Pool (oracle.com)</a></p>
-<blockquote><p>Java Virtual Machine instructions do not rely on the run-time layout of classes, interfaces, class instances, or arrays. Instead, instructions refer to symbolic information in the table. <code>constant_pool</code></p>
-<p>All table entries have the following general format: <code>constant_pool</code></p>
-</blockquote>
-<p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5.5'>Run-Time Constant Pool (oracle.com)</a></p>
-<blockquote><p>A <em>run-time constant pool</em> is a per-class or per-interface run-time representation of the table in a file (<a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-4.html#jvms-4.4'>§4.4</a>). It contains several kinds of constants, ranging from numeric literals known at compile-time to method and field references that must be resolved at run-time. The run-time constant pool serves a function similar to that of a symbol table for a conventional programming language, although it contains a wider range of data than a typical symbol table. <code>constant_pool``class</code></p>
-<p>Each run-time constant pool is allocated from the Java Virtual Machine&#39;s method area (<a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5.4'>§2.5.4</a>). The run-time constant pool for a class or interface is constructed when the class or interface is created (<a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-5.html#jvms-5.3'>§5.3</a>) by the Java Virtual Machine.</p>
-<p>The following exceptional condition is associated with the construction of the run-time constant pool for a class or interface:</p>
-<ul>
-<li>When creating a class or interface, if the construction of the run-time constant pool requires more memory than can be made available in the method area of the Java Virtual Machine, the Java Virtual Machine throws an . <code>OutOfMemoryError</code></li>
-
-</ul>
-<p>See <a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-5.html'>§5 (<em>Loading, Linking, and Initializing</em>)</a> for information about the construction of the run-time constant pool.</p>
-</blockquote>
-<h3 id='412-string常量到底存在哪'>4.1.2 String常量到底存在哪</h3>
-<pre><code class='language-java' lang='java'>public class SCPDemo {
-    public static void main(String[] args) {
-        // 这个常量一定会放到字符串常量池
-        String str1 = &quot;SCP&quot;;
-        String str2 = &quot;SCP&quot;;
-        String str3 = new String(&quot;SCP&quot;);
-        // 找字符串常量池中是否有该常量，如果有就直接返回，没有就创建
-        String str4 = str3.intern();
-        
-        // equals 只会比较值 == 会比较地址
-        System.out.println(str1.equals(str2)); 	// true
-        System.out.println(str1 == str2);       // true
-        System.out.println(str1.equals(str3)); 	// true
-        System.out.println(str1 == str3);       // false
-        System.out.println(str1.equals(str4)); 	// true
-        System.out.println(str1 == str4);       // true
-    }
-}
-</code></pre>
-<p><img src=".\JavaVirtualMachine.assets\String Constant Pool.jpg" referrerpolicy="no-referrer" alt="String Constant Pool"></p>
-<h2 id='42-heap堆'>4.2 Heap(堆)</h2>
-<blockquote><ol start='' >
-<li>Java堆是Java虚拟机所管理内存中最大的一块，在虚拟机启动时创建，被所有线程共享</li>
-<li>Java对象实例以及数组都在堆上分配</li>
-<li>堆内存不足时，也会抛出OOM</li>
-
-</ol>
-</blockquote>
-<h3 id='421-java对象内存布局'>4.2.1 Java对象内存布局</h3>
-<blockquote><p>一个Java对象在内存中包括三个部分</p>
-<ul>
-<li>对象头</li>
-<li>实例数据</li>
-<li>对齐填充</li>
-
-</ul>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\Heap Of Java Object.jpg" referrerpolicy="no-referrer" alt="Heap Of Java Object"></p>
-<h3 id='422-方法区引用指向堆'>4.2.2 方法区引用指向堆</h3>
-<p><img src=".\JavaVirtualMachine.assets\方法区引用指向堆.png" referrerpolicy="no-referrer" alt="方法区引用指向堆"></p>
-<p>&nbsp;</p>
-<h3 id='423-堆指向方法区'>4.2.3 堆指向方法区</h3>
-<p><img src=".\JavaVirtualMachine.assets\堆指向方法区.png" referrerpolicy="no-referrer" alt="堆指向方法区"></p>
-<h2 id='43-java-virtual-machine-stacksjava虚拟机栈'>4.3 Java Virtual Machine Stacks(Java虚拟机栈)</h2>
-<blockquote><ol start='' >
-<li>虚拟机栈是一个线程执行的区域，保存着一个线程中方法的调用状态。即一个Java线程的运行状态，由一个虚拟机栈来保存，所以虚拟机栈肯定是线程私有的，独有的，随着线程创建而创建。</li>
-<li>每一个被线程执行的方法，为该栈中的栈帧，即每个方法对应一个栈帧。调用一个方法，就会向栈中压入一个栈帧；一个方法调用完成，就会把该栈帧从栈中弹出。</li>
-
-</ol>
-</blockquote>
-<h3 id='431-代码示例'>4.3.1 代码示例</h3>
-<pre><code class='language-java' lang='java'>void a() {
-    b();
-}
-void b() {
-    c();
-}
-void c() {
-}
-</code></pre>
-<h3 id='432-压栈出栈'>4.3.2 压栈出栈</h3>
-<p><img src=".\JavaVirtualMachine.assets\虚拟机栈.png" referrerpolicy="no-referrer" alt="虚拟机栈"></p>
-<h3 id='433-frame栈帧'>4.3.3 Frame(栈帧)</h3>
-<p><img src=".\JavaVirtualMachine.assets\Frame(栈帧).png" referrerpolicy="no-referrer" alt="Frame(栈帧)"></p>
-<p>&nbsp;</p>
-<h3 id='434-字节码'>4.3.4 字节码</h3>
-<blockquote><p>使用idea插件Show Bytecode查看class文件，查看calc方法</p>
-<p>或者</p>
-<p><code>javap -c .\User.class</code></p>
-<p><code>javap</code>命令查看 <a href='#21-java-source'>2.1 Java Source</a> 编译后的字节码指令</p>
-</blockquote>
-<pre><code class='language-txt' lang='txt'>  public static calc(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Integer;
-   L0
-    LINENUMBER 20 L0
-    ICONST_3       // 将int类型常量3压入[操作数栈]
-    INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;
-    ASTORE 0       // 将int类型存入[局部变量0]
-   L1
-    LINENUMBER 21 L1
-    ALOAD 0		  // 从[局部变量0]中装载int类型值入栈
-    INVOKEVIRTUAL java/lang/Integer.intValue ()I
-    ALOAD 1		  // 从[局部变量1]中装载int类型值入栈
-    INVOKEVIRTUAL java/lang/Integer.intValue ()I
-    IADD		  // 将栈顶元素弹出栈，执行int类型的加法，结果入栈
-    INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;
-    ASTORE 2       // 将栈顶int类型值保存到[局部变量2]中
-   L2
-    LINENUMBER 22 L2
-    ALOAD 2		  // 从[局部变量2]中装载int类型值入栈
-    ARETURN        // 从方法中返回int类型的数据
-   L3
-    LOCALVARIABLE p1 Ljava/lang/Integer; L0 L3 0
-    LOCALVARIABLE p2 Ljava/lang/Integer; L0 L3 1
-    LOCALVARIABLE result Ljava/lang/Integer; L2 L3 2
-    MAXSTACK = 2
-    MAXLOCALS = 3
-</code></pre>
-<p>&nbsp;</p>
-<h3 id='435-index为0还是1'>4.3.5 Index为0还是1</h3>
-<p>对于Java虚拟机栈中的Local Variables，到底是从0开始还是1开始，要看当前方法是static还是实例方法。</p>
-<blockquote><p>1 The Java Virtual Machine uses local variables to pass parameters on method invocation. On class method invocation, any parameters are passed in consecutive local variables starting from local variable 0.</p>
-<p>2 On instance method invocation, local variable 0 is always used to pass a reference to the object on which the instance method is being invoked (this in the Java programming language).</p>
-<p>3 Any parameters are subsequently passed in consecutive local variables starting from local variable 1.</p>
-</blockquote>
-<h3 id='436-栈引用指向堆'>4.3.6 栈引用指向堆</h3>
-<p><img src=".\JavaVirtualMachine.assets\栈引用指向堆.png" referrerpolicy="no-referrer" alt="栈引用指向堆"></p>
-<h2 id='44-native-method-stacks本地方法栈'>4.4 Native Method Stacks(本地方法栈)</h2>
-<p><img src=".\JavaVirtualMachine.assets\Native Method Stacks(本地方法栈).png" referrerpolicy="no-referrer" alt="Native Method Stacks(本地方法栈)"></p>
-<h2 id='45-the-pc-register'>4.5 The PC Register</h2>
-<p>如果线程正在执行Java方法，则计数器记录的是正在执行的虚拟机字节码指令的地址。</p>
-<p>如果正在执行的是Native方法，则这个计数器为空。</p>
-<h1 id='5-内存模型'>5. 内存模型</h1>
-<h2 id='51-整体描述'>5.1 整体描述</h2>
-<p>上面对运行时数据区描述了很多，其实重点存储数据的是堆和方法区（非堆），所以内存的设计也着重从这两方面展开（注意，这两块区域都是线程共享的）。对于虚拟机栈、程序计数器都是线程私有的。</p>
-<ul>
-<li>一块是非堆区，一块是堆区</li>
-<li>堆区分为两大块，一个是Old区，一个是Young区</li>
-<li>Young区分为两大块，一个是Survivor（S0+S1），一块是Eden区</li>
-<li>S0和S1一样大，也可以交From和To</li>
-
-</ul>
-<p><img src=".\JavaVirtualMachine.assets\Java Memory Model Description.png" referrerpolicy="no-referrer" alt="Java Memory Model Description"></p>
-<h2 id='52-java-memory-model'>5.2 Java Memory Model</h2>
-<blockquote><p><a href='https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4'>Chapter 17. Threads and Locks (oracle.com)</a></p>
-</blockquote>
-<h2 id='53-对象在内存中的分配回收'>5.3 对象在内存中的分配回收</h2>
-<p><img src=".\JavaVirtualMachine.assets\对象在内存中分配流程.png" referrerpolicy="no-referrer" alt="对象在内存中分配流程"></p>
-<h2 id='54-代码体验'>5.4 代码体验</h2>
-<h3 id='541-堆的oom'>5.4.1 堆的OOM</h3>
-<blockquote><p><code>-Xmx50M -Xms50M</code></p>
-</blockquote>
-<pre><code class='language-java' lang='java'>@RestController
-public class HeapController {
-    List&lt;Person&gt; list = new ArrayList&lt;&gt;();
-    
-    @GetMapping(&quot;/heap&quot;)
-    public String heap() {
-        while(true) {
-            list.add(new Person());
-        }
-    }
-}
-</code></pre>
-<h3 id='542-方法区oom'>5.4.2 方法区OOM</h3>
-<blockquote><p><code>-XX:MetaspaceSize=50M -XX:MaxMetaspaceSize=50M</code></p>
-</blockquote>
-<ol start='' >
-<li><p>asm依赖</p>
-<pre><code class='language-xml' lang='xml'>&lt;dependency&gt;
-    &lt;groupId&gt;asm&lt;/groupId&gt;
-    &lt;artifactId&gt;asm&lt;/artifactId&gt;
-    &lt;version&gt;${asm.version}&lt;/version&gt;
-&lt;/dependency&gt;
-</code></pre>
-</li>
-<li><p>工具类</p>
-<pre><code class='language-java' lang='java'>public class MyMetaspace extends ClassLoader {
-    public static List&lt;Class&lt;?&gt;&gt; createClasses() {
-        List&lt;Class&lt;?&gt;&gt; classes = new ArrayList&lt;Class&lt;?&gt;&gt;();
-        for (int i = 0; i &lt; 10000000; ++i) {
-            ClassWriter cw = new ClassWriter(0);
-            cw.visit(Opcodes.V1_1, Opcodes.ACC_PUBLIC, &quot;Class&quot; + i, null, &quot;java/lang/Object&quot;, null);
-            MethodVisitor mw = cw.visitMethod(Opcodes.ACC_PUBLIC, &quot;&lt;init&gt;&quot;, &quot;()V&quot;, null, null);
-            mw.visitVarInsn(Opcodes.ALOAD, 0);
-            mw.visitMethodInsn(Opcodes.INVOKESPECIAL, &quot;java/lang/Object&quot;, &quot;&lt;init&gt;&quot;, &quot;()V&quot;);
-            mw.visitInsn(Opcodes.RETURN);
-            mw.visitMaxs(1, 1);
-            mw.visitEnd();
-            Metaspace test = new Metaspace();
-            byte[] code = cw.toByteArray();
-            Class&lt;?&gt; exampleClass = test.defineClass(&quot;Class&quot; + i, code, 0, code.length);
-            classes.add(exampleClass);
-        }
-        return classes;
-    }
-}
-</code></pre>
-</li>
-<li><p>代码</p>
-<pre><code class='language-java' lang='java'>@RestController
-public class NonHeapController {
-    List&lt;Class&lt;?&gt;&gt; list=new ArrayList&lt;Class&lt;?&gt;&gt;();
-    @GetMapping(&quot;/nonheap&quot;)
-    public String nonheap() {
-        while(true) {
-            list.addAll(MyMetaspace.createClasses());
-        }
-    }
-}
-</code></pre>
-</li>
-
-</ol>
-<h3 id='543-栈溢出'>5.4.3 栈溢出</h3>
-<pre><code class='language-java' lang='java'>public class StackDemo {
-    public static long count = 0;
-    public static void method() {
-        System.out.println(count++);
-        method();
-    }
-    public static void main(String[] args) {
-        method();
-    }
-}
-</code></pre>
-<h1 id='6-垃圾收集'>6. 垃圾收集</h1>
-<h2 id='61-确定垃圾对象'>6.1 确定垃圾对象</h2>
-<h3 id='611-引用计数法'>6.1.1 引用计数法</h3>
-<p>对于某个对象而言，只要应用程序中持有该对象的引用，就说明该对象不是垃圾，如果一个对象没有任何指针对其引用，它就是垃圾。</p>
-<h3 id='612-可达性分析'>6.1.2 可达性分析</h3>
-<p>通过GC Root的对象，开始向下寻找，看某个对象是否可达。</p>
-<blockquote><p>能作为GC Root</p>
-<ul>
-<li>类加载器</li>
-<li>Thread</li>
-<li>虚拟机栈的本地变量表</li>
-<li>Static成员</li>
-<li>常量引用</li>
-<li>本地方法栈的变量</li>
-<li>...</li>
-
-</ul>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC Root可达性分析.png" referrerpolicy="no-referrer" alt="GC Root可达性分析"></p>
-<h2 id='62-垃圾收集算法'>6.2 垃圾收集算法</h2>
-<h3 id='621-标记---清除'>6.2.1 标记 - 清除</h3>
-<ul>
-<li><strong>标记：</strong>找出内存中需要回收的对象，并且把它们标记出来</li>
-<li><strong>清除：</strong>清除掉被标记需要回收的对象，释放出对应的内存空间</li>
-
-</ul>
-<blockquote><p><strong>缺点：</strong></p>
-<ol start='' >
-<li>标记和清除两个过程都比较耗时，效率不高</li>
-<li>会产生大量不连续的内存碎片，空间碎片太多，可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前出发一次垃圾收集操作</li>
-
-</ol>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC-标记清除.png" referrerpolicy="no-referrer" alt="GC-标记清除"></p>
-<h3 id='622-标记---整理'>6.2.2 标记 - 整理</h3>
-<ul>
-<li><strong>标记：</strong>找出内存中需要回收的对象，并且把它们标记出来</li>
-<li><strong>整理：</strong>清除掉被标记需要回收的对象，释放出对应的内存空间，并整理存活对象</li>
-
-</ul>
-<p><img src=".\JavaVirtualMachine.assets\GC-标记整理.png" referrerpolicy="no-referrer" alt="GC-标记整理"></p>
-<h3 id='623-标记---复制'>6.2.3 标记 - 复制</h3>
-<ul>
-<li><strong>标记：</strong>找出内存中需要回收的对象，并且把它们标记出来</li>
-<li><strong>复制：</strong>将存活对象复制至另一片空闲空间，将该空至空</li>
-
-</ul>
-<blockquote><p><strong>缺点：</strong></p>
-<ol start='' >
-<li>存在大量的复制操作，效率会降低</li>
-<li>空间利用率降低</li>
-
-</ol>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC-标记复制.png" referrerpolicy="no-referrer" alt="GC-标记复制"></p>
-<h2 id='63-垃圾收集算法选择'>6.3 垃圾收集算法选择</h2>
-<p><strong>Young区：</strong>复制算法（对象在被分配之后，可能生命周期比较短，Young区复制效率比较高）</p>
-<p><strong>Old区：</strong>标记清除或者标记整理（Old区对象存活时间比较长，复制来复制去没必要，不如做个标记再清理）</p>
-<h2 id='64-垃圾收集器'>6.4 垃圾收集器</h2>
-<blockquote><p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。</p>
-</blockquote>
-<h3 id='641-serial'>6.4.1 Serial</h3>
-<blockquote><p>可以用与新老年代</p>
-<p>新生代：复制算法</p>
-<p>老年代：标记-整理算法</p>
-</blockquote>
-<blockquote><p>The serial collector uses a single thread to perform all garbage collection work</p>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC - Serial.png" referrerpolicy="no-referrer" alt="GC - Serial"></p>
-<h3 id='642-parallel'>6.4.2 Parallel</h3>
-<blockquote><p>可以用于新老年代</p>
-<p><strong>新生代：</strong>复制算法</p>
-<p><strong>老年代：</strong>标记整理算法</p>
-</blockquote>
-<blockquote><p>The parallel collector is also known as throughput collector, it&#39;s a generational collector similar to the serial collector. The primary difference between the serial and parallel collectors is that the parallel collector has multiple threads that are used to speed up garbage collection</p>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC - Parallel.png" referrerpolicy="no-referrer" alt="GC - Parallel"></p>
-<h3 id='643-cmsconcurrentmarksweepgc'>6.4.3 CMS(ConcurrentMarkSweepGC)</h3>
-<blockquote><p><a href='https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html#concurrent_mark_sweep_cms_collector'>Concurrent Mark Sweep (CMS) Collector (oracle.com)</a></p>
-<blockquote><p>The Concurrent Mark Sweep (CMS) collector is designed for applications that prefer shorter garbage collection pauses and that can afford to share processor resources with the garbage collector while the application is running. </p>
-</blockquote>
-<p>可以用于新老年代</p>
-<p>采用标记-清除算法</p>
-<p>回收过程：<a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'>Getting Started with the G1 Garbage Collector (oracle.com)</a></p>
-<blockquote><ol start='' >
-<li>The Concurrent Mark Sweep (CMS) collector (also referred to as the concurrent low pause collector) collects the tenured generation. It attempts to minimize the pauses due to garbage collection by doing most of the garbage collection work concurrently with the application threads. Normally the concurrent low pause collector does not copy or compact the live objects. A garbage collection is done without moving the live objects. If fragmentation becomes a problem, allocate a larger heap.</li>
-
-</ol>
-</blockquote>
-<blockquote><ol start='2' >
-<li><strong>Note:</strong> CMS collector on young generation uses the same algorithm as that of the parallel collector.</li>
-
-</ol>
-</blockquote>
-</blockquote>
-<ol start='' >
-<li><strong>初始标记：</strong>CMS initial mark 标记GC Roots直接关联对象，不用Tracing，速度很快</li>
-<li><strong>并发标记：</strong>CMS concurrent mark 进行GC Roots Tracing</li>
-<li><strong>重新标记：</strong>CMS remark 修改并发标记因用户程序变动的内容</li>
-<li><strong>并发清除：</strong>CMS concurrent sweep 清除不可达对象回收空间，同时有新垃圾产生，留着下次清理称为浮动垃圾</li>
-
-</ol>
-<blockquote><p><strong>优缺点：</strong></p>
-<ul>
-<li><strong>优点：</strong>并发收集，低停顿</li>
-<li><strong>缺点：</strong>产生大量空间碎片，并发阶段会降低吞吐量</li>
-
-</ul>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\GC - CMS.png" referrerpolicy="no-referrer" alt="GC - CMS"></p>
-<h3 id='644-g1garbage-first'>6.4.4 G1(Garbage First)</h3>
-<blockquote><p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html#GUID-C7B19628-27BA-4945-9004-EC0F08C76003'>Garbage-First (G1) Garbage Collector (oracle.com)</a></p>
-<p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html'>garbage-first-g1-garbage-collector1</a></p>
-<blockquote><p>G1 is a mostly concurrent collector. Mostly concurrent collectors perform some expensive work concurrently to the application. This collector is designed to scale from small machines to large multiprocessor machines with a large amount of memory. It provides the capability to meet a pause-time goal with high probability, while achieving high throughput.</p>
-<p>G1 is selected by default on most hardware and operating system configurations, or can be explicitly enabled using <code>-XX:+UseG1GC</code> .</p>
-</blockquote>
-<p>可以用于新老年代</p>
-<p>回收过程：<a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'>Getting Started with the G1 Garbage Collector (oracle.com)</a></p>
-</blockquote>
-<ol start='' >
-<li><strong>初始标记（Initial Marking）：</strong> 标记以下GC Roots能够关联的对象，并且修改TAMS的值，需要暂停用户线程</li>
-<li><strong>并发标记（Concurrent Marking）：</strong> 从GC Roots进行可达性分析，找出存活的对象，与用户线程并发执行</li>
-<li><strong>最终标记（Final Marking）：</strong> 修正在并发标记阶段因为用户程序的并发执行导致变动的数据，需暂停用户线程</li>
-<li><strong>筛选回收（Live Data Counting and Evacuation）：</strong> 对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间制定回收计划</li>
-
-</ol>
-<p><img src=".\JavaVirtualMachine.assets\GC - G1.png" referrerpolicy="no-referrer" alt="GC - G1"></p>
-<p><strong>理解：</strong></p>
-<ol start='' >
-<li><p>使用G1收集器时，Java堆的内存布局就与其它收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，他们都是一部分Region（不需要连续）的集合。</p>
-</li>
-<li><p>每个Region大小都是一样的，可以是1M到32M之间的数值，但是必须保证是2的N次幂。</p>
-</li>
-<li><p>如果对象太大，一个Region放不下（超过Region大小的50%），那么就会直接放到H中</p>
-<blockquote><p>Humongous objects are objects larger or equal the size of half a region. The current region size is determined ergonomically as described in the <a href='https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html#GUID-082C967F-2DAC-4B59-8A81-0CEC6EEB9016'>Ergonomic Defaults for G1 GC</a> section, unless set using the option.<code>-XX:G1HeapRegionSize</code></p>
-</blockquote>
-</li>
-<li><p>设置Region大小：<code>‐XX:G1HeapRegionSize=M</code></p>
-</li>
-<li><p>所谓Garbage‐Frist，其实就是优先回收垃圾最多的Region区域</p>
-</li>
-
-</ol>
-<blockquote><p>The young generation contains eden regions (red) and survivor regions (red with &quot;S&quot;). These regions provide the same function as the respective contiguous spaces in other collectors, with the difference that in G1 these regions are typically laid out in a noncontiguous pattern in memory. Old regions (light blue) make up the old generation. Old generation regions may be humongous (light blue with &quot;H&quot;) for objects that span multiple regions.</p>
-<p>An application always allocates into a young generation, that is, eden regions, with the exception of humongous objects that are directly allocated as belonging to the old generation.</p>
-<p>年轻一代包含Eden区域（红色）和Survivor区域（红色带“S”）。这些区域提供与其他收集器中各自的连续空间相同的功能，不同之处在于，在 G1 中，这些区域通常在内存中以不连续的模式布局。旧区域（浅蓝色）组成了老一代。对于跨越多个区域的对象，旧一代区域可能是巨大的（浅蓝色带“H”）。</p>
-<p>应用程序始终分配给年轻一代，即伊甸园区域，但直接分配给属于老一代的巨大对象除外。</p>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\grbg_frst_hp.png" referrerpolicy="no-referrer" alt="grbg_frst_hp"></p>
-<h3 id='645-zgc'>6.4.5 ZGC</h3>
-<blockquote><p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/z-garbage-collector.html'>z-garbage-collector</a></p>
-<blockquote><p><em>The Z Garbage Collector (ZGC)</em> is a scalable low latency garbage collector. ZGC performs all expensive work concurrently, without stopping the execution of application threads for more than a few milliseconds. It is suitable for applications which require low latency. Pause times are independent of heap size that is being used. ZGC supports heap sizes from 8MB to 16TB.</p>
-</blockquote>
-<p>Java11引入的垃圾收集器</p>
-<p>不管是物理上还是逻辑上，ZGC中已经不存在新老年代的概念了</p>
-<p>会分为一个个page，当进行GC操作时会对page进行压缩，因此没有碎片问题</p>
-<p>只能在64位的linux上使用，目前用得还比较少</p>
-</blockquote>
-<ul>
-<li>可以达到10ms以内的停顿时间要求</li>
-<li>支持TB级别的内存</li>
-<li>堆内存变大后停顿时间还是在10ms以内</li>
-
-</ul>
-<h2 id='65-垃圾收集器分类'>6.5 垃圾收集器分类</h2>
-<ul>
-<li><p>串行：Serial</p>
-<blockquote><p>适合内存比较小的嵌入式设备</p>
-</blockquote>
-</li>
-<li><p>并行：Parallel</p>
-<blockquote><p>更加关注吞吐量，适合科学计算、后台处理等弱交互场景</p>
-</blockquote>
-</li>
-<li><p>并发：CMS、G1</p>
-<blockquote><p>更加关注停顿时间，适合WEB交互场景</p>
-</blockquote>
-</li>
-
-</ul>
-<p><img src=".\JavaVirtualMachine.assets\GC - Selector.png" referrerpolicy="no-referrer" alt="GC - Selector"></p>
-<figure><table>
-<thead>
-<tr><th>收集器</th><th>新老年代</th><th>串行 / 并行 / 并发</th><th>STW</th><th>指令</th></tr></thead>
-<tbody><tr><td><strong>Serial</strong></td><td>新生代</td><td>串行（单线程收集）</td><td>暂停应用线程</td><td>&nbsp;</td></tr><tr><td><strong>ParNew</strong></td><td>新生代</td><td>并行（多线程收集）</td><td>暂停应用线程</td><td>&nbsp;</td></tr><tr><td><strong>Parallel Scavenge</strong></td><td>新生代（吞吐优先）</td><td>并行（多线程收集）</td><td>暂停应用线程</td><td><code>-XX:+UseParallelGC</code></td></tr><tr><td><strong>CMS</strong></td><td>老年代（停顿时间优先）</td><td>并发</td><td>收集线程与用户线程一起工作</td><td><code>-XX:+UseConcMarkSweepGC</code></td></tr><tr><td><strong>Serial Old</strong></td><td>老年代</td><td>串行（单线程收集）</td><td>暂停应用线程</td><td>&nbsp;</td></tr><tr><td><strong>Parallel Old</strong></td><td>老年代（吞吐优先）</td><td>并行（多线程收集）</td><td>暂停应用线程</td><td><code>-XX:+UseParallelGC</code></td></tr><tr><td><strong>G1</strong></td><td>新生代 / 老年代</td><td>并发</td><td>收集线程与用户线程一起工作</td><td><code>-XX:UseG1GC</code></td></tr></tbody>
-</table></figure>
-<h2 id='66-reponsiveness-and-throughput'>6.6 Reponsiveness and throughput</h2>
-<p><strong>停顿时间：</strong>垃圾收集器进行垃圾回收终端应用执行响应的时间</p>
-<p><strong>吞吐量：</strong>运行用户代码时间 / (运行用户代码时间 + 垃圾收集时间)</p>
-<h2 id='67-什么时候会发生垃圾收集'>6.7 什么时候会发生垃圾收集</h2>
-<blockquote><p>GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确定的。</p>
-<p>当然，我们是可以手动进行垃圾回收的，比如调用<code>System.gc()</code>方法通知JVM进行一次垃圾回收，但是具体什么时刻运行也无法控制。</p>
-<p>也就是说<code>System.gc()</code>只是通知要回收，什么时候回收由JVM决定。但是不建议手动调用该方法，因为GC消耗的资源比较大。</p>
-</blockquote>
-<ol start='' >
-<li>当Eden区或者S区不够用了：Young GC或者Minor GC</li>
-<li>老年代空间不够用了：Old GC或者Major GC</li>
-<li>方法区空间不够用了：Metaspace GC</li>
-<li><code>System.gc()</code></li>
-
-</ol>
-<blockquote><p>Full GC = Young GC + Old GC + Metaspace GC</p>
-</blockquote>
-<h1 id='7-execution-engine'>7. Execution Engine</h1>
-<blockquote><p>User.java源码文件时Java这门高级开发语言，对程序员友好，方便我们开发</p>
-<p>javac编译器将User.java源码文件编译成class文件（这个编译成为前期编译），交给JVM运行，因为JVM只认识class字节码文件。同时在不同的操作系统上安装对应版本的JDK，里面包含了各自屏蔽操作系统底层细节的JVM，这样同一份class文件就能运行在不同的操作系统平台上，得益于JVM。这也是Write Once，Run Anywhere的原因所在。</p>
-<p>最终JVM需要把字节码指令转换为机器码，可以理解为0101这样的机器语言，这样才能运行在不同的机器上，那么由字节码转变为机器码的操作，是由谁来完成操作的呢？这就是执行引擎里面的解释执行器和编译器所要做的事情。</p>
-</blockquote>
-<p><img src=".\JavaVirtualMachine.assets\Execution Engine.png" referrerpolicy="no-referrer" alt="Execution Engine"></p>
-<h2 id='71-interpreter'>7.1 Interpreter</h2>
-<blockquote><p>解释器逐条把字节码翻译成机器码并执行，跨平台的保证。</p>
-<p>刚开始执行引擎只采用了解释执行的，但是后来发现某些方法或者代码块被调用执行的特别频繁时，就会把这些代码认定为“热点代码”。</p>
-</blockquote>
-<h2 id='72-即时编译器'>7.2 即时编译器</h2>
-<blockquote><p>Just-In-Time compilation(JIT)，即时编译器先将字节码编译成对应平台的可执行文件，运行速度快。</p>
-<p>即时编译器会把这些热点代码编译成与本地平台关联的机器码，并且进行各层次的优化，保存到内存中。</p>
-</blockquote>
-<h3 id='721-c1和c2'>7.2.1 C1和C2</h3>
-<blockquote><p>HotSpot虚拟机里面内置了两个JIT：C1和C2</p>
-<blockquote><p>C1也称为Client Compiler，适用于执行时间短或者对启动性能有要求的程序</p>
-<p>C2也称为Server Compiler，适用于执行时间长或者对峰值性能有要求的程序</p>
-</blockquote>
-<p>Java7开始，HotSpot会使用分层编译的方式</p>
-<blockquote><p>也就是会结合C1的启动性能优势和C2的峰值性能优势，热点方法会先被C1编译，然后热点方法中的热点会被C2再次编译</p>
-</blockquote>
-</blockquote>
-<h3 id='722-aot'>7.2.2 AOT</h3>
-<blockquote><p>在Java9中，引入了AOT(Ahead of Time)编译器</p>
-<p>即时编译器是在程序运行过程中，将字节码翻译成机器码。而AOT是在程序运行之前，将字节码转换为机器码</p>
-<blockquote><p><strong>优势 ：</strong>这样不需要在运行过程中消耗计算机资源来进行即时编译</p>
-<p><strong>劣势 ：</strong>AOT 编译无法得知程序运行时的信息，因此也无法进行基于类层次分析的完全虚方法内联，或者基于程序profifile的投机性优化（并非硬性限制，我们可以通过限制运行范围，或者利用上一次运行的程序profifile来绕开这两个限制）</p>
-</blockquote>
-</blockquote>
-<h3 id='723-graal-vm'>7.2.3 Graal VM</h3>
-<blockquote><p><a href='https://www.graalvm.org/'>GraalVM</a></p>
-<p>在Java10中，新的JIT编译器Graal被引入。它是一个以Java为主要编程语言，面向字节码的编译器。跟C++实现的C1和C2相比，模块化更加明显，也更加容易维护。</p>
-<p>Graal既可以作为动态编译器，在运行时编译热点方法；也可以作为静态编译器，实现AOT编译。</p>
-<p>除此之外，它还移除了编程语言之间的边界，并且支持通过即时编译技术，将混杂了不同的编程语言的代码编译到同一段二进制码之中，从而实现不同语言之间的无缝切换。</p>
-</blockquote>
-<p>&nbsp;</p>
-<blockquote><p>Spring Native：<a href='https://spring.io/blog/2021/03/11/announcing-spring-native-beta' target='_blank' class='url'>https://spring.io/blog/2021/03/11/announcing-spring-native-beta</a></p>
-<p>Dubbo Native：<a href='https://dubbo.apache.org/zh/docs/references/graalvm/support-graalvm/' target='_blank' class='url'>https://dubbo.apache.org/zh/docs/references/graalvm/support-graalvm/</a></p>
-</blockquote>
-<h1 id='8-性能优化'>8. 性能优化</h1>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
+<body class='typora-export os-windows'><div class='typora-export-content'>
+<div id='write'  class=''><div class='md-toc' mdtype='toc'><p class="md-toc-content" role="list"><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n2"><a class="md-toc-inner" href="#1-jvm介绍">1. JVM介绍</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n3"><a class="md-toc-inner" href="#11-什么是jvm">1.1 什么是JVM</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n38"><a class="md-toc-inner" href="#12-jvm产品">1.2 JVM产品</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n44"><a class="md-toc-inner" href="#13-jdk--jre--jvm">1.3 JDK / JRE / JVM</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n48"><a class="md-toc-inner" href="#14-结合jdk理解jvm">1.4 结合JDK理解JVM</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n55"><a class="md-toc-inner" href="#15-hotspot-jvm-architecture">1.5 HotSpot JVM Architecture</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n60"><a class="md-toc-inner" href="#2-class-file">2. Class File</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n61"><a class="md-toc-inner" href="#21-java-source">2.1 Java Source</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n65"><a class="md-toc-inner" href="#22-early-compile">2.2 Early Compile</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n88"><a class="md-toc-inner" href="#23-class-format">2.3 Class Format</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n91"><a class="md-toc-inner" href="#24-analyse">2.4 Analyse</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n94"><a class="md-toc-inner" href="#25-反汇编">2.5 反汇编</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n100"><a class="md-toc-inner" href="#3-类加载机制">3. 类加载机制</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n105"><a class="md-toc-inner" href="#31-loading">3.1 Loading</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n107"><a class="md-toc-inner" href="#311-classloader">3.1.1 ClassLoader</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n128"><a class="md-toc-inner" href="#312-双亲委派机制">3.1.2 双亲委派机制</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n141"><a class="md-toc-inner" href="#313-代码体验">3.1.3 代码体验</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n143"><a class="md-toc-inner" href="#314-破坏双亲委派">3.1.4 破坏双亲委派</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n144"><a class="md-toc-inner" href="#3141-tomcat">3.1.4.1 Tomcat</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n146"><a class="md-toc-inner" href="#3142-spi机制">3.1.4.2 SPI机制</a></span><span role="listitem" class="md-toc-item md-toc-h4" data-ref="n147"><a class="md-toc-inner" href="#3143-osgi">3.1.4.3 OSGI</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n148"><a class="md-toc-inner" href="#32-linking">3.2 Linking</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n149"><a class="md-toc-inner" href="#321-verification">3.2.1 Verification</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n151"><a class="md-toc-inner" href="#322-preparation">3.2.2 Preparation</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n153"><a class="md-toc-inner" href="#323-resolution">3.2.3 Resolution</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n155"><a class="md-toc-inner" href="#33-initialization">3.3 Initialization</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n157"><a class="md-toc-inner" href="#4-运行时数据区">4. 运行时数据区</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n162"><a class="md-toc-inner" href="#41-method-area方法区">4.1 Method Area(方法区)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n167"><a class="md-toc-inner" href="#411-常量池和运行时常量池">4.1.1 常量池和运行时常量池</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n181"><a class="md-toc-inner" href="#412-string常量到底存在哪">4.1.2 String常量到底存在哪</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n184"><a class="md-toc-inner" href="#42-heap堆">4.2 Heap(堆)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n193"><a class="md-toc-inner" href="#421-java对象内存布局">4.2.1 Java对象内存布局</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n204"><a class="md-toc-inner" href="#422-方法区引用指向堆">4.2.2 方法区引用指向堆</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n207"><a class="md-toc-inner" href="#423-堆指向方法区">4.2.3 堆指向方法区</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n209"><a class="md-toc-inner" href="#43-java-virtual-machine-stacksjava虚拟机栈">4.3 Java Virtual Machine Stacks(Java虚拟机栈)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n216"><a class="md-toc-inner" href="#431-代码示例">4.3.1 代码示例</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n218"><a class="md-toc-inner" href="#432-压栈出栈">4.3.2 压栈出栈</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n220"><a class="md-toc-inner" href="#433-frame栈帧">4.3.3 Frame(栈帧)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n223"><a class="md-toc-inner" href="#434-字节码">4.3.4 字节码</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n231"><a class="md-toc-inner" href="#435-index为0还是1">4.3.5 Index为0还是1</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n237"><a class="md-toc-inner" href="#436-栈引用指向堆">4.3.6 栈引用指向堆</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n239"><a class="md-toc-inner" href="#44-native-method-stacks本地方法栈">4.4 Native Method Stacks(本地方法栈)</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n241"><a class="md-toc-inner" href="#45-the-pc-register">4.5 The PC Register</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n244"><a class="md-toc-inner" href="#5-内存模型">5. 内存模型</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n245"><a class="md-toc-inner" href="#51-整体描述">5.1 整体描述</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n257"><a class="md-toc-inner" href="#52-java-memory-model">5.2 Java Memory Model</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n260"><a class="md-toc-inner" href="#53-对象在内存中的分配回收">5.3 对象在内存中的分配回收</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n262"><a class="md-toc-inner" href="#54-代码体验">5.4 代码体验</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n263"><a class="md-toc-inner" href="#541-堆的oom">5.4.1 堆的OOM</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n267"><a class="md-toc-inner" href="#542-方法区oom">5.4.2 方法区OOM</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n280"><a class="md-toc-inner" href="#543-栈溢出">5.4.3 栈溢出</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n282"><a class="md-toc-inner" href="#6-垃圾收集">6. 垃圾收集</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n283"><a class="md-toc-inner" href="#61-确定垃圾对象">6.1 确定垃圾对象</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n284"><a class="md-toc-inner" href="#611-引用计数法">6.1.1 引用计数法</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n286"><a class="md-toc-inner" href="#612-可达性分析">6.1.2 可达性分析</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n306"><a class="md-toc-inner" href="#62-垃圾收集算法">6.2 垃圾收集算法</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n307"><a class="md-toc-inner" href="#621-标记---清除">6.2.1 标记 - 清除</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n321"><a class="md-toc-inner" href="#622-标记---整理">6.2.2 标记 - 整理</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n328"><a class="md-toc-inner" href="#623-标记---复制">6.2.3 标记 - 复制</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n342"><a class="md-toc-inner" href="#63-垃圾收集算法选择">6.3 垃圾收集算法选择</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n345"><a class="md-toc-inner" href="#64-垃圾收集器">6.4 垃圾收集器</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n348"><a class="md-toc-inner" href="#641-serial">6.4.1 Serial</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n356"><a class="md-toc-inner" href="#642-parallel">6.4.2 Parallel</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n364"><a class="md-toc-inner" href="#643-cmsconcurrentmarksweepgc">6.4.3 CMS(ConcurrentMarkSweepGC)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n397"><a class="md-toc-inner" href="#644-g1garbage-first">6.4.4 G1(Garbage First)</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n436"><a class="md-toc-inner" href="#645-zgc">6.4.5 ZGC</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n452"><a class="md-toc-inner" href="#65-垃圾收集器分类">6.5 垃圾收集器分类</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n516"><a class="md-toc-inner" href="#66-reponsiveness-and-throughput">6.6 Reponsiveness and throughput</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n519"><a class="md-toc-inner" href="#67-什么时候会发生垃圾收集">6.7 什么时候会发生垃圾收集</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n535"><a class="md-toc-inner" href="#7-execution-engine">7. Execution Engine</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n541"><a class="md-toc-inner" href="#71-interpreter">7.1 Interpreter</a></span><span role="listitem" class="md-toc-item md-toc-h2" data-ref="n545"><a class="md-toc-inner" href="#72-即时编译器">7.2 即时编译器</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n549"><a class="md-toc-inner" href="#721-c1和c2">7.2.1 C1和C2</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n558"><a class="md-toc-inner" href="#722-aot">7.2.2 AOT</a></span><span role="listitem" class="md-toc-item md-toc-h3" data-ref="n565"><a class="md-toc-inner" href="#723-graal-vm">7.2.3 Graal VM</a></span><span role="listitem" class="md-toc-item md-toc-h1" data-ref="n575"><a class="md-toc-inner" href="#8-性能优化">8. 性能优化</a></span></p></div><h1 id='1-jvm介绍'><span>1. JVM介绍</span></h1><h2 id='11-什么是jvm'><span>1.1 什么是JVM</span></h2><blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-1.html'><span>Chapter 1. Introduction (oracle.com)</span></a></p><h2 id='the-java-virtual-machine'><span>The Java Virtual Machine</span></h2><p><span>The Java Virtual Machine is the cornerstone of the Java platform. It is the component of the technology responsible for its hardware- and operating system-independence, the small size of its compiled code, and its ability to protect users from malicious programs.</span></p><p><span>The Java Virtual Machine is an abstract computing machine. Like a real computing machine, it has an instruction set and manipulates various memory areas at run time. It is reasonably common to implement a programming language using a virtual machine; the best-known virtual machine may be the P-Code machine of UCSD Pascal.</span></p><p><span>The first prototype implementation of the Java Virtual Machine, done at Sun Microsystems, Inc., emulated the Java Virtual Machine instruction set in software hosted by a handheld device that resembled a contemporary Personal Digital Assistant (PDA). Oracle&#39;s current implementations emulate the Java Virtual Machine on mobile, desktop and server devices, but the Java Virtual Machine does not assume any particular implementation technology, host hardware, or host operating system. It is not inherently interpreted, but can just as well be implemented by compiling its instruction set to that of a silicon CPU. It may also be implemented in microcode or directly in silicon.</span></p><p><span>The Java Virtual Machine knows nothing of the Java programming language, only of a particular binary format, the file format. A file contains Java Virtual Machine instructions (or </span><em><span>bytecodes</span></em><span>) and a symbol table, as well as other ancillary information. </span><code>class``class</code></p><p><span>For the sake of security, the Java Virtual Machine imposes strong syntactic and structural constraints on the code in a file. However, any language with functionality that can be expressed in terms of a valid file can be hosted by the Java Virtual Machine. Attracted by a generally available, machine-independent platform, implementors of other languages can turn to the Java Virtual Machine as a delivery vehicle for their languages. </span><code>class``class</code></p><p><span>The Java Virtual Machine specified here is compatible with the Java SE 17 platform, and supports the Java programming language specified in </span><em><span>The Java Language Specification, Java SE 17 Edition</span></em><span>.</span></p></blockquote><p><span>简单理解：</span></p><p><span>高级语言经过编译后，生成class二进制文件，同一份文件，可在不同平台上的JVM容器中运行。</span></p><p><img src=".\JavaVirtualMachine.assets\JVM.jpg" referrerpolicy="no-referrer" alt="JVM"></p><p>&nbsp;</p><p><span>计算机组成结构：</span></p><ul><li><p><span>输入设备</span></p></li><li><p><span>控制器</span></p></li><li><p><span>运算器</span></p></li><li><p><span>存储器</span></p></li><li><p><span>输出设备</span></p><p><img src=".\JavaVirtualMachine.assets\计算机组成结构.jpg" referrerpolicy="no-referrer" alt="计算机组成结构"></p></li></ul><p><span>那么Java虚拟机对比物理机</span></p><ul><li><span>Class文件类比输入设备</span></li><li><span>CPU指令集类比输出设备</span></li><li><span>JVM类比存储器、控制器、运算器等</span></li></ul><h2 id='12-jvm产品'><span>1.2 JVM产品</span></h2><blockquote><p><span>最常用的目前是HotSpot，可以通关</span><code>java -version</code><span>命令查看</span></p></blockquote><p><strong><span>Oracle</span></strong><span>：HotSpot、JRockit</span></p><p><strong><span>Ali</span></strong><span>：TaobaoVM</span></p><p><strong><span>Zual</span></strong><span>：Zing</span></p><h2 id='13-jdk--jre--jvm'><span>1.3 JDK / JRE / JVM</span></h2><blockquote><p><a href='https://docs.oracle.com/javase/8/docs/index.html'><span>Java Platform Standard Edition 8 Documentation (oracle.com)</span></a></p><p><img src=".\JavaVirtualMachine.assets\java8_docs.png" referrerpolicy="no-referrer" alt="Java8_docs"></p></blockquote><h2 id='14-结合jdk理解jvm'><span>1.4 结合JDK理解JVM</span></h2><ol start='' ><li><span>能把Class文件翻译成不同平台的CPU指令集</span></li><li><span>也是 Write Once Run Anywhere的保证</span></li></ol><p><img src=".\JavaVirtualMachine.assets\Write Once Run Anywhere.jpg" referrerpolicy="no-referrer" alt="Write Once Run Anywhere"></p><h2 id='15-hotspot-jvm-architecture'><span>1.5 HotSpot JVM Architecture</span></h2><blockquote><p><a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'><span>Getting Started with the G1 Garbage Collector (oracle.com)</span></a></p></blockquote><p><span>JVM 的主要组件包括类装入器（Class Loader）、运行时数据区域（Runtime Data Areas）和执行引擎（Execution Engine）。</span></p><p><img src=".\JavaVirtualMachine.assets\HotSpot JVM Architecture.PNG" referrerpolicy="no-referrer" alt="HotSpot JVM Architecture"></p><h1 id='2-class-file'><span>2. Class File</span></h1><h2 id='21-java-source'><span>2.1 Java Source</span></h2><blockquote><p><span>可以运行于JVM的编程语言有Java、Kotlin、Groovy 等</span></p></blockquote><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">User</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">private</span> <span class="cm-variable-3">Integer</span> <span class="cm-variable">age</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">private</span> <span class="cm-variable-3">String</span> <span class="cm-variable">name</span> <span class="cm-operator">=</span> <span class="cm-string">"zhangsan"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">private</span> <span class="cm-variable-3">Double</span> <span class="cm-variable">salary</span> <span class="cm-operator">=</span> <span class="cm-number">100.0</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-variable-3">void</span> <span class="cm-variable">say</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">name</span> <span class="cm-operator">+</span> <span class="cm-string">"Say: ..."</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">Integer</span> <span class="cm-variable">calc</span>(<span class="cm-variable-3">Integer</span> <span class="cm-variable">p1</span>, <span class="cm-variable-3">Integer</span> <span class="cm-variable">p2</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">p1</span> <span class="cm-operator">=</span> <span class="cm-number">3</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">Integer</span> <span class="cm-variable">result</span> <span class="cm-operator">=</span> <span class="cm-variable">p1</span> <span class="cm-operator">+</span> <span class="cm-variable">p2</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">result</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-variable">main</span>(<span class="cm-variable-3">String</span>[] <span class="cm-variable">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">calc</span>(<span class="cm-number">1</span>, <span class="cm-number">2</span>));</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 506px;"></div><div class="CodeMirror-gutters" style="display: none; height: 506px;"></div></div></div></pre><h2 id='22-early-compile'><span>2.2 Early Compile</span></h2><blockquote><p><a href='https://openjdk.org/groups/compiler/doc/compilation-overview/index.html'><span>Compilation Overview (openjdk.org)</span></a></p><blockquote><p><span>The process of compiling a set of source files into a corresponding set of class files is not a simple one, but can be generally divided into three stages. Different parts of source files may proceed through the process at different rates, on an &quot;as needed&quot; basis.</span></p><p><img src=".\JavaVirtualMachine.assets\Compilation Overview.png" referrerpolicy="no-referrer" alt="Compilation Overview"></p><p><span>This process is handled by the class.</span><code>JavaCompiler</code></p><ol start='' ><li><span>All the source files specified on the command line are read, parsed into syntax trees, and then all externally visible definitions are entered into the compiler&#39;s symbol tables.</span></li><li><span>All appropriate annotation processors are called. If any annotation processors generate any new source or class files, the compilation is restarted, until no new files are created.</span></li><li><span>Finally, the syntax trees created by the parser are analyzed and translated into class files. During the course of the analysis, references to additional classes may be found. The compiler will check the source and class path for these classes; if they are found on the source path, those files will be compiled as well, although they will not be subject to annotation processing.</span></li></ol></blockquote></blockquote><p><span>Java文件编译过程包括两个阶段：</span></p><ul><li><span>第一阶段是在编译阶段编译成Java字节码的过程，有些书籍中叫前端编译器，如Oracle的javac编译器；</span></li><li><span>第二阶段是在运行时，通过JVM的编译优化组件，对代码中的部分代码编译成本地代码，即JIT编译，如HotSpot中的C1、C2编译器（ Thus the threads used by client JIT compiler are called c1 compiler threads. Threads used by the server JIT compiler are called c2 compiler threads.）。</span></li></ul><p><span>编译源码文件： User.java -&gt; User.class</span></p><p><code>javac .\User.java</code></p><p><img src=".\JavaVirtualMachine.assets\Java&nbsp;Compile.jpg" referrerpolicy="no-referrer" alt="Java Compile"></p><h2 id='23-class-format'><span>2.3 Class Format</span></h2><blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-4.html'><span>Chapter 4. The class File Format (oracle.com)</span></a></p></blockquote><h2 id='24-analyse'><span>2.4 Analyse</span></h2><blockquote><p><span>JVM加载解释映射，可参考 2.3 官网解释。</span></p></blockquote><h2 id='25-反汇编'><span>2.5 反汇编</span></h2><blockquote><p><span>JDK自带命令 </span><code>javap -h</code><span>进行番编译，查看字节码信息和指令信息</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="sh"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="sh"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">javap <span class="cm-attribute">-v</span> <span class="cm-attribute">-c</span> <span class="cm-attribute">-p</span> User.class &gt; User.txt</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre></blockquote><p><span>JVM相对于class文件来说可以理解为操作系统；</span></p><p><span>Class文件相对与JVM来说可以理解为汇编语言或机器语言</span></p><h1 id='3-类加载机制'><span>3. 类加载机制</span></h1><blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se8/html/jvms-5.html'><span>Chapter 5. Loading, Linking, and Initializing (oracle.com)</span></a></p><blockquote><p><span>The Java Virtual Machine dynamically loads, links and initializes classes and interfaces. Loading is the process of finding the binary representation of a class or interface type with a particular name and </span><em><span>creating</span></em><span> a class or interface from that binary representation. Linking is the process of taking a class or interface and combining it into the run-time state of the Java Virtual Machine so that it can be executed. Initialization of a class or interface consists of executing the class or interface initialization method </span><code>&lt;clinit&gt;</code></p></blockquote></blockquote><h2 id='31-loading'><span>3.1 Loading</span></h2><p>&nbsp;</p><h3 id='311-classloader'><span>3.1.1 ClassLoader</span></h3><ul><li><p><span>Bootstrap ClassLoader（启动类加载器）</span></p><blockquote><p><span>负责加载</span><code>$JAVA_HOME中jre/lib/rt.jar</code><span>里所有的class，加载</span><code>System.getProperty(&quot;sun.boot.class.path&quot;)</code><span>所指定的路径或jar。</span></p></blockquote></li><li><p><span>Extension ClassLoader（标准扩展类加载器） </span></p><blockquote><p><span>负责加载java平台中扩展功能的一些jar包，</span></p><p><span>包括$JAVA_HOME中</span><code>jre/lib/*.jar</code><span>或</span><code>-Djava.ext.dirs</code><span>指定目录下的jar包，</span></p><p><span>加载</span><code>System.getProperty(&quot;java.ext.dirs&quot;)</code><span>所指定的路径或jar。</span></p></blockquote></li><li><p><span>Application ClassLoader（系统类加载器）</span></p><blockquote><p><span>负责加载ClassLoader中指定的jar包及目录中class </span></p></blockquote></li><li><p><span>Custom ClassLoader（自定义加载器）</span></p><blockquote><p><span>属于应用程序根据自身需要自定义的ClassLoader，如Tomcat、JBoss都会根据j2ee规范自行实现。</span></p></blockquote></li></ul><p><img src=".\JavaVirtualMachine.assets\ClassLoader.jpg" referrerpolicy="no-referrer" alt="ClassLoader"></p><h3 id='312-双亲委派机制'><span>3.1.2 双亲委派机制</span></h3><ol start='' ><li><p><span>检查某个类是否已经加载</span></p><blockquote><p><em><strong><span>自底向上</span></strong></em></p><p><span>从Custom ClassLoader到Bootstrap ClassLoader逐层检查，只要某个ClassLoader已加</span></p><p><span>载，就视为已加载此类，保证此类所有ClassLoader加载一次。</span></p></blockquote></li><li><p><span>加载</span></p><blockquote><p><em><strong><span>自顶向下</span></strong></em></p><p><span>也就是由上层来逐层尝试加载此类。</span></p></blockquote></li></ol><h3 id='313-代码体验'><span>3.1.3 代码体验</span></h3><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-def">main</span>(<span class="cm-variable-3">String</span>[] <span class="cm-variable">args</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment">// App ClassLoader</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">User</span>.<span class="cm-keyword">class</span>.<span class="cm-variable">getClassLoader</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment">// Ext ClassLoader</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">User</span>.<span class="cm-keyword">class</span>.<span class="cm-variable">getClassLoader</span>().<span class="cm-variable">getParent</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment">// Bootstrap ClassLoader 原生C++语言实现，此处打印null</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">User</span>.<span class="cm-keyword">class</span>.<span class="cm-variable">getClassLoader</span>().<span class="cm-variable">getParent</span>().<span class="cm-variable">getParent</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="" cm-zwsp="">
+</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable-3">String</span>.<span class="cm-keyword">class</span>.<span class="cm-variable">getClassLoader</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 276px;"></div><div class="CodeMirror-gutters" style="display: none; height: 276px;"></div></div></div></pre><h3 id='314-破坏双亲委派'><span>3.1.4 破坏双亲委派</span></h3><h4 id='3141-tomcat'><span>3.1.4.1 Tomcat</span></h4><p><img src=".\JavaVirtualMachine.assets\Tomcat ClassLoader.jpg" referrerpolicy="no-referrer" alt="Tomcat ClassLoader"></p><h4 id='3142-spi机制'><span>3.1.4.2 SPI机制</span></h4><h4 id='3143-osgi'><span>3.1.4.3 OSGI</span></h4><h2 id='32-linking'><span>3.2 Linking</span></h2><h3 id='321-verification'><span>3.2.1 Verification</span></h3><p><span>保证被加载类的正确性</span></p><h3 id='322-preparation'><span>3.2.2 Preparation</span></h3><p><span>为类的静态变量分配内存，并将其初始化为默认值</span></p><h3 id='323-resolution'><span>3.2.3 Resolution</span></h3><p><span>把类中的符号引用转换为直接引用</span></p><h2 id='33-initialization'><span>3.3 Initialization</span></h2><p><span>对类的静态变量，静态代码块执行初始化操作</span></p><h1 id='4-运行时数据区'><span>4. 运行时数据区</span></h1><blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5'><span>Chapter 2. The Structure of the Java Virtual Machine (oracle.com)</span></a></p><blockquote><p><span>The Java Virtual Machine defines various run-time data areas that are used during execution of a program. Some of these data areas are created on Java Virtual Machine start-up and are destroyed only when the Java Virtual Machine exits. Other data areas are per thread. Per-thread data areas are created when a thread is created and destroyed when the thread exits.</span></p></blockquote></blockquote><h2 id='41-method-area方法区'><span>4.1 Method Area(方法区)</span></h2><blockquote><p><span>JVM运行时数据区是一种规范，真正的实现实在JDK8中就是Metaspace，在JDK6或者7中就是Perm Space</span></p></blockquote><p><span>方法区时各个线程共享的内存区域，在虚拟机启动时创建，虽然Java虚拟机规范把方法区描述为堆的一个逻辑部分，但是它却有一个别名叫做 Non-Heap（非堆），目的是与Java堆区分开来。</span></p><p><span>用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。当方法区无法满足内存分配需求时，将抛出OutOfMemoryError异常。</span></p><h3 id='411-常量池和运行时常量池'><span>4.1.1 常量池和运行时常量池</span></h3><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-4.html#jvms-4.4'><span>The Constant Pool (oracle.com)</span></a></p><blockquote><p><span>Java Virtual Machine instructions do not rely on the run-time layout of classes, interfaces, class instances, or arrays. Instead, instructions refer to symbolic information in the table. </span><code>constant_pool</code></p><p><span>All table entries have the following general format: </span><code>constant_pool</code></p></blockquote><p><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5.5'><span>Run-Time Constant Pool (oracle.com)</span></a></p><blockquote><p><span>A </span><em><span>run-time constant pool</span></em><span> is a per-class or per-interface run-time representation of the table in a file (</span><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-4.html#jvms-4.4'><span>§4.4</span></a><span>). It contains several kinds of constants, ranging from numeric literals known at compile-time to method and field references that must be resolved at run-time. The run-time constant pool serves a function similar to that of a symbol table for a conventional programming language, although it contains a wider range of data than a typical symbol table. </span><code>constant_pool``class</code></p><p><span>Each run-time constant pool is allocated from the Java Virtual Machine&#39;s method area (</span><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-2.html#jvms-2.5.4'><span>§2.5.4</span></a><span>). The run-time constant pool for a class or interface is constructed when the class or interface is created (</span><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-5.html#jvms-5.3'><span>§5.3</span></a><span>) by the Java Virtual Machine.</span></p><p><span>The following exceptional condition is associated with the construction of the run-time constant pool for a class or interface:</span></p><ul><li><span>When creating a class or interface, if the construction of the run-time constant pool requires more memory than can be made available in the method area of the Java Virtual Machine, the Java Virtual Machine throws an . </span><code>OutOfMemoryError</code></li></ul><p><span>See </span><a href='https://docs.oracle.com/javase/specs/jvms/se17/html/jvms-5.html'><span>§5 (</span><em><span>Loading, Linking, and Initializing</span></em><span>)</span></a><span> for information about the construction of the run-time constant pool.</span></p></blockquote><h3 id='412-string常量到底存在哪'><span>4.1.2 String常量到底存在哪</span></h3><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">SCPDemo</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-variable">main</span>(<span class="cm-variable-3">String</span>[] <span class="cm-variable">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment">// 这个常量一定会放到字符串常量池</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">String</span> <span class="cm-variable">str1</span> <span class="cm-operator">=</span> <span class="cm-string">"SCP"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">String</span> <span class="cm-variable">str2</span> <span class="cm-operator">=</span> <span class="cm-string">"SCP"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">String</span> <span class="cm-variable">str3</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable-3">String</span>(<span class="cm-string">"SCP"</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment">// 找字符串常量池中是否有该常量，如果有就直接返回，没有就创建</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">String</span> <span class="cm-variable">str4</span> <span class="cm-operator">=</span> <span class="cm-variable">str3</span>.<span class="cm-variable">intern</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-comment">// equals 只会比较值 == 会比较地址</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span>.<span class="cm-variable">equals</span>(<span class="cm-variable">str2</span>)); <span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-comment">// true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span> <span class="cm-operator">==</span> <span class="cm-variable">str2</span>); &nbsp; &nbsp; &nbsp; <span class="cm-comment">// true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span>.<span class="cm-variable">equals</span>(<span class="cm-variable">str3</span>)); <span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-comment">// true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span> <span class="cm-operator">==</span> <span class="cm-variable">str3</span>); &nbsp; &nbsp; &nbsp; <span class="cm-comment">// false</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span>.<span class="cm-variable">equals</span>(<span class="cm-variable">str4</span>)); <span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-comment">// true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">str1</span> <span class="cm-operator">==</span> <span class="cm-variable">str4</span>); &nbsp; &nbsp; &nbsp; <span class="cm-comment">// true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 414px;"></div><div class="CodeMirror-gutters" style="display: none; height: 414px;"></div></div></div></pre><p><img src=".\JavaVirtualMachine.assets\String Constant Pool.jpg" referrerpolicy="no-referrer" alt="String Constant Pool"></p><h2 id='42-heap堆'><span>4.2 Heap(堆)</span></h2><blockquote><ol start='' ><li><span>Java堆是Java虚拟机所管理内存中最大的一块，在虚拟机启动时创建，被所有线程共享</span></li><li><span>Java对象实例以及数组都在堆上分配</span></li><li><span>堆内存不足时，也会抛出OOM</span></li></ol></blockquote><h3 id='421-java对象内存布局'><span>4.2.1 Java对象内存布局</span></h3><blockquote><p><span>一个Java对象在内存中包括三个部分</span></p><ul><li><span>对象头</span></li><li><span>实例数据</span></li><li><span>对齐填充</span></li></ul></blockquote><p><img src=".\JavaVirtualMachine.assets\Heap Of Java Object.jpg" referrerpolicy="no-referrer" alt="Heap Of Java Object"></p><h3 id='422-方法区引用指向堆'><span>4.2.2 方法区引用指向堆</span></h3><p><img src=".\JavaVirtualMachine.assets\方法区引用指向堆.png" referrerpolicy="no-referrer" alt="方法区引用指向堆"></p><p>&nbsp;</p><h3 id='423-堆指向方法区'><span>4.2.3 堆指向方法区</span></h3><p><img src=".\JavaVirtualMachine.assets\堆指向方法区.png" referrerpolicy="no-referrer" alt="堆指向方法区"></p><h2 id='43-java-virtual-machine-stacksjava虚拟机栈'><span>4.3 Java Virtual Machine Stacks(Java虚拟机栈)</span></h2><blockquote><ol start='' ><li><span>虚拟机栈是一个线程执行的区域，保存着一个线程中方法的调用状态。即一个Java线程的运行状态，由一个虚拟机栈来保存，所以虚拟机栈肯定是线程私有的，独有的，随着线程创建而创建。</span></li><li><span>每一个被线程执行的方法，为该栈中的栈帧，即每个方法对应一个栈帧。调用一个方法，就会向栈中压入一个栈帧；一个方法调用完成，就会把该栈帧从栈中弹出。</span></li></ol></blockquote><h3 id='431-代码示例'><span>4.3.1 代码示例</span></h3><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">void</span> <span class="cm-def">a</span>() {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">b</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">void</span> <span class="cm-def">b</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">c</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-3">void</span> <span class="cm-def">c</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 184px;"></div><div class="CodeMirror-gutters" style="display: none; height: 184px;"></div></div></div></pre><h3 id='432-压栈出栈'><span>4.3.2 压栈出栈</span></h3><p><img src=".\JavaVirtualMachine.assets\虚拟机栈.png" referrerpolicy="no-referrer" alt="虚拟机栈"></p><h3 id='433-frame栈帧'><span>4.3.3 Frame(栈帧)</span></h3><p><img src=".\JavaVirtualMachine.assets\Frame(栈帧).png" referrerpolicy="no-referrer" alt="Frame(栈帧)"></p><p>&nbsp;</p><h3 id='434-字节码'><span>4.3.4 字节码</span></h3><blockquote><p><span>使用idea插件Show Bytecode查看class文件，查看calc方法</span></p><p><span>或者</span></p><p><code>javap -c .\User.class</code></p><p><code>javap</code><span>命令查看 </span><a href='#21-java-source'><span>2.1 Java Source</span></a><span> 编译后的字节码指令</span></p></blockquote><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="txt" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="txt"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  public static calc(Ljava/lang/Integer;Ljava/lang/Integer;)Ljava/lang/Integer;</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; L0</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LINENUMBER 20 L0</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ICONST_3 &nbsp; &nbsp; &nbsp; // 将int类型常量3压入[操作数栈]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ASTORE 0 &nbsp; &nbsp; &nbsp; // 将int类型存入[局部变量0]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; L1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LINENUMBER 21 L1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ALOAD 0<span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-tab" role="presentation" cm-text="	">    </span>  // 从[局部变量0]中装载int类型值入栈</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  INVOKEVIRTUAL java/lang/Integer.intValue ()I</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ALOAD 1<span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-tab" role="presentation" cm-text="	">    </span>  // 从[局部变量1]中装载int类型值入栈</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  INVOKEVIRTUAL java/lang/Integer.intValue ()I</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  IADD<span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>  // 将栈顶元素弹出栈，执行int类型的加法，结果入栈</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  INVOKESTATIC java/lang/Integer.valueOf (I)Ljava/lang/Integer;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ASTORE 2 &nbsp; &nbsp; &nbsp; // 将栈顶int类型值保存到[局部变量2]中</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; L2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LINENUMBER 22 L2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ALOAD 2<span class="cm-tab" role="presentation" cm-text="	"> </span><span class="cm-tab" role="presentation" cm-text="	">    </span>  // 从[局部变量2]中装载int类型值入栈</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  ARETURN &nbsp; &nbsp; &nbsp;  // 从方法中返回int类型的数据</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; L3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LOCALVARIABLE p1 Ljava/lang/Integer; L0 L3 0</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LOCALVARIABLE p2 Ljava/lang/Integer; L0 L3 1</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  LOCALVARIABLE result Ljava/lang/Integer; L2 L3 2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  MAXSTACK = 2</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  MAXLOCALS = 3</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 575px;"></div><div class="CodeMirror-gutters" style="display: none; height: 575px;"></div></div></div></pre><p>&nbsp;</p><h3 id='435-index为0还是1'><span>4.3.5 Index为0还是1</span></h3><p><span>对于Java虚拟机栈中的Local Variables，到底是从0开始还是1开始，要看当前方法是static还是实例方法。</span></p><blockquote><p><span>1 The Java Virtual Machine uses local variables to pass parameters on method invocation. On class method invocation, any parameters are passed in consecutive local variables starting from local variable 0.</span></p><p><span>2 On instance method invocation, local variable 0 is always used to pass a reference to the object on which the instance method is being invoked (this in the Java programming language).</span></p><p><span>3 Any parameters are subsequently passed in consecutive local variables starting from local variable 1.</span></p></blockquote><h3 id='436-栈引用指向堆'><span>4.3.6 栈引用指向堆</span></h3><p><img src=".\JavaVirtualMachine.assets\栈引用指向堆.png" referrerpolicy="no-referrer" alt="栈引用指向堆"></p><h2 id='44-native-method-stacks本地方法栈'><span>4.4 Native Method Stacks(本地方法栈)</span></h2><p><img src=".\JavaVirtualMachine.assets\Native Method Stacks(本地方法栈).png" referrerpolicy="no-referrer" alt="Native Method Stacks(本地方法栈)"></p><h2 id='45-the-pc-register'><span>4.5 The PC Register</span></h2><p><span>如果线程正在执行Java方法，则计数器记录的是正在执行的虚拟机字节码指令的地址。</span></p><p><span>如果正在执行的是Native方法，则这个计数器为空。</span></p><h1 id='5-内存模型'><span>5. 内存模型</span></h1><h2 id='51-整体描述'><span>5.1 整体描述</span></h2><p><span>上面对运行时数据区描述了很多，其实重点存储数据的是堆和方法区（非堆），所以内存的设计也着重从这两方面展开（注意，这两块区域都是线程共享的）。对于虚拟机栈、程序计数器都是线程私有的。</span></p><ul><li><span>一块是非堆区，一块是堆区</span></li><li><span>堆区分为两大块，一个是Old区，一个是Young区</span></li><li><span>Young区分为两大块，一个是Survivor（S0+S1），一块是Eden区</span></li><li><span>S0和S1一样大，也可以交From和To</span></li></ul><p><img src=".\JavaVirtualMachine.assets\Java Memory Model Description.png" referrerpolicy="no-referrer" alt="Java Memory Model Description"></p><h2 id='52-java-memory-model'><span>5.2 Java Memory Model</span></h2><blockquote><p><a href='https://docs.oracle.com/javase/specs/jls/se8/html/jls-17.html#jls-17.4'><span>Chapter 17. Threads and Locks (oracle.com)</span></a></p></blockquote><h2 id='53-对象在内存中的分配回收'><span>5.3 对象在内存中的分配回收</span></h2><p><img src=".\JavaVirtualMachine.assets\对象在内存中分配流程.png" referrerpolicy="no-referrer" alt="对象在内存中分配流程"></p><h2 id='54-代码体验'><span>5.4 代码体验</span></h2><h3 id='541-堆的oom'><span>5.4.1 堆的OOM</span></h3><blockquote><p><code>-Xmx50M -Xms50M</code></p></blockquote><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">@RestController</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">HeapController</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">List</span><span class="cm-operator">&lt;</span><span class="cm-variable">Person</span><span class="cm-operator">&gt;</span> <span class="cm-variable">list</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">ArrayList</span><span class="cm-operator">&lt;&gt;</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-meta">@GetMapping</span>(<span class="cm-string">"/heap"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-variable-3">String</span> <span class="cm-variable">heap</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">while</span>(<span class="cm-atom">true</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">list</span>.<span class="cm-variable">add</span>(<span class="cm-keyword">new</span> <span class="cm-variable">Person</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 253px;"></div><div class="CodeMirror-gutters" style="display: none; height: 253px;"></div></div></div></pre><h3 id='542-方法区oom'><span>5.4.2 方法区OOM</span></h3><blockquote><p><code>-XX:MetaspaceSize=50M -XX:MaxMetaspaceSize=50M</code></p></blockquote><ol start='' ><li><p><span>asm依赖</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="xml"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="xml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">dependency</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">groupId</span><span class="cm-tag cm-bracket">&gt;</span>asm<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">groupId</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">artifactId</span><span class="cm-tag cm-bracket">&gt;</span>asm<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">artifactId</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">version</span><span class="cm-tag cm-bracket">&gt;</span>${asm.version}<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">version</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">dependency</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 115px;"></div><div class="CodeMirror-gutters" style="display: none; height: 115px;"></div></div></div></pre></li><li><p><span>工具类</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java" style="break-inside: unset;"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">MyMetaspace</span> <span class="cm-keyword">extends</span> <span class="cm-variable">ClassLoader</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable">List</span><span class="cm-operator">&lt;</span><span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;&gt;</span> <span class="cm-variable">createClasses</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">List</span><span class="cm-operator">&lt;</span><span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;&gt;</span> <span class="cm-variable">classes</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">ArrayList</span><span class="cm-operator">&lt;</span><span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;&gt;</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">for</span> (<span class="cm-variable-3">int</span> <span class="cm-variable">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">i</span> <span class="cm-operator">&lt;</span> <span class="cm-number">10000000</span>; <span class="cm-operator">++</span><span class="cm-variable">i</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">ClassWriter</span> <span class="cm-variable">cw</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">ClassWriter</span>(<span class="cm-number">0</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">cw</span>.<span class="cm-variable">visit</span>(<span class="cm-variable">Opcodes</span>.<span class="cm-variable">V1_1</span>, <span class="cm-variable">Opcodes</span>.<span class="cm-variable">ACC_PUBLIC</span>, <span class="cm-string">"Class"</span> <span class="cm-operator">+</span> <span class="cm-variable">i</span>, <span class="cm-atom">null</span>, <span class="cm-string">"java/lang/Object"</span>, <span class="cm-atom">null</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">MethodVisitor</span> <span class="cm-variable">mw</span> <span class="cm-operator">=</span> <span class="cm-variable">cw</span>.<span class="cm-variable">visitMethod</span>(<span class="cm-variable">Opcodes</span>.<span class="cm-variable">ACC_PUBLIC</span>, <span class="cm-string">"&lt;init&gt;"</span>, <span class="cm-string">"()V"</span>, <span class="cm-atom">null</span>, <span class="cm-atom">null</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">mw</span>.<span class="cm-variable">visitVarInsn</span>(<span class="cm-variable">Opcodes</span>.<span class="cm-variable">ALOAD</span>, <span class="cm-number">0</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">mw</span>.<span class="cm-variable">visitMethodInsn</span>(<span class="cm-variable">Opcodes</span>.<span class="cm-variable">INVOKESPECIAL</span>, <span class="cm-string">"java/lang/Object"</span>, <span class="cm-string">"&lt;init&gt;"</span>, <span class="cm-string">"()V"</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">mw</span>.<span class="cm-variable">visitInsn</span>(<span class="cm-variable">Opcodes</span>.<span class="cm-variable">RETURN</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">mw</span>.<span class="cm-variable">visitMaxs</span>(<span class="cm-number">1</span>, <span class="cm-number">1</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">mw</span>.<span class="cm-variable">visitEnd</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">Metaspace</span> <span class="cm-variable">test</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Metaspace</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable-3">byte</span>[] <span class="cm-variable">code</span> <span class="cm-operator">=</span> <span class="cm-variable">cw</span>.<span class="cm-variable">toByteArray</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;</span> <span class="cm-variable">exampleClass</span> <span class="cm-operator">=</span> <span class="cm-variable">test</span>.<span class="cm-variable">defineClass</span>(<span class="cm-string">"Class"</span> <span class="cm-operator">+</span> <span class="cm-variable">i</span>, <span class="cm-variable">code</span>, <span class="cm-number">0</span>, <span class="cm-variable">code</span>.<span class="cm-variable">length</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">classes</span>.<span class="cm-variable">add</span>(<span class="cm-variable">exampleClass</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable">classes</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 460px;"></div><div class="CodeMirror-gutters" style="display: none; height: 460px;"></div></div></div></pre></li><li><p><span>代码</span></p><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">@RestController</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">NonHeapController</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable">List</span><span class="cm-operator">&lt;</span><span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;&gt;</span> <span class="cm-variable">list</span><span class="cm-operator">=</span><span class="cm-keyword">new</span> <span class="cm-variable">ArrayList</span><span class="cm-operator">&lt;</span><span class="cm-variable">Class</span><span class="cm-operator">&lt;?&gt;&gt;</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-meta">@GetMapping</span>(<span class="cm-string">"/nonheap"</span>)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-variable-3">String</span> <span class="cm-variable">nonheap</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">while</span>(<span class="cm-atom">true</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">list</span>.<span class="cm-variable">addAll</span>(<span class="cm-variable">MyMetaspace</span>.<span class="cm-variable">createClasses</span>());</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 230px;"></div><div class="CodeMirror-gutters" style="display: none; height: 230px;"></div></div></div></pre></li></ol><h3 id='543-栈溢出'><span>5.4.3 栈溢出</span></h3><pre class="md-fences md-end-block ty-contain-cm modeLoaded" spellcheck="false" lang="java"><div class="CodeMirror cm-s-inner cm-s-null-scroll CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 9.5px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">class</span> <span class="cm-def">StackDemo</span> {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">long</span> <span class="cm-variable">count</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-variable">method</span>() {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">System</span>.<span class="cm-variable">out</span>.<span class="cm-variable">println</span>(<span class="cm-variable">count</span><span class="cm-operator">++</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">method</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">public</span> <span class="cm-keyword">static</span> <span class="cm-variable-3">void</span> <span class="cm-variable">main</span>(<span class="cm-variable-3">String</span>[] <span class="cm-variable">args</span>) {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-variable">method</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  }</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 230px;"></div><div class="CodeMirror-gutters" style="display: none; height: 230px;"></div></div></div></pre><h1 id='6-垃圾收集'><span>6. 垃圾收集</span></h1><h2 id='61-确定垃圾对象'><span>6.1 确定垃圾对象</span></h2><h3 id='611-引用计数法'><span>6.1.1 引用计数法</span></h3><p><span>对于某个对象而言，只要应用程序中持有该对象的引用，就说明该对象不是垃圾，如果一个对象没有任何指针对其引用，它就是垃圾。</span></p><h3 id='612-可达性分析'><span>6.1.2 可达性分析</span></h3><p><span>通过GC Root的对象，开始向下寻找，看某个对象是否可达。</span></p><blockquote><p><span>能作为GC Root</span></p><ul><li><span>类加载器</span></li><li><span>Thread</span></li><li><span>虚拟机栈的本地变量表</span></li><li><span>Static成员</span></li><li><span>常量引用</span></li><li><span>本地方法栈的变量</span></li><li><span>...</span></li></ul></blockquote><p><img src=".\JavaVirtualMachine.assets\GC Root可达性分析.png" referrerpolicy="no-referrer" alt="GC Root可达性分析"></p><h2 id='62-垃圾收集算法'><span>6.2 垃圾收集算法</span></h2><h3 id='621-标记---清除'><span>6.2.1 标记 - 清除</span></h3><ul><li><strong><span>标记：</span></strong><span>找出内存中需要回收的对象，并且把它们标记出来</span></li><li><strong><span>清除：</span></strong><span>清除掉被标记需要回收的对象，释放出对应的内存空间</span></li></ul><blockquote><p><strong><span>缺点：</span></strong></p><ol start='' ><li><span>标记和清除两个过程都比较耗时，效率不高</span></li><li><span>会产生大量不连续的内存碎片，空间碎片太多，可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前出发一次垃圾收集操作</span></li></ol></blockquote><p><img src=".\JavaVirtualMachine.assets\GC-标记清除.png" referrerpolicy="no-referrer" alt="GC-标记清除"></p><h3 id='622-标记---整理'><span>6.2.2 标记 - 整理</span></h3><ul><li><strong><span>标记：</span></strong><span>找出内存中需要回收的对象，并且把它们标记出来</span></li><li><strong><span>整理：</span></strong><span>清除掉被标记需要回收的对象，释放出对应的内存空间，并整理存活对象</span></li></ul><p><img src=".\JavaVirtualMachine.assets\GC-标记整理.png" referrerpolicy="no-referrer" alt="GC-标记整理"></p><h3 id='623-标记---复制'><span>6.2.3 标记 - 复制</span></h3><ul><li><strong><span>标记：</span></strong><span>找出内存中需要回收的对象，并且把它们标记出来</span></li><li><strong><span>复制：</span></strong><span>将存活对象复制至另一片空闲空间，将该空至空</span></li></ul><blockquote><p><strong><span>缺点：</span></strong></p><ol start='' ><li><span>存在大量的复制操作，效率会降低</span></li><li><span>空间利用率降低</span></li></ol></blockquote><p><img src=".\JavaVirtualMachine.assets\GC-标记复制.png" referrerpolicy="no-referrer" alt="GC-标记复制"></p><h2 id='63-垃圾收集算法选择'><span>6.3 垃圾收集算法选择</span></h2><p><strong><span>Young区：</span></strong><span>复制算法（对象在被分配之后，可能生命周期比较短，Young区复制效率比较高）</span></p><p><strong><span>Old区：</span></strong><span>标记清除或者标记整理（Old区对象存活时间比较长，复制来复制去没必要，不如做个标记再清理）</span></p><h2 id='64-垃圾收集器'><span>6.4 垃圾收集器</span></h2><blockquote><p><span>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。</span></p></blockquote><h3 id='641-serial'><span>6.4.1 Serial</span></h3><blockquote><p><span>可以用与新老年代</span></p><p><span>新生代：复制算法</span></p><p><span>老年代：标记-整理算法</span></p></blockquote><blockquote><p><span>The serial collector uses a single thread to perform all garbage collection work</span></p></blockquote><p><img src=".\JavaVirtualMachine.assets\GC - Serial.png" referrerpolicy="no-referrer" alt="GC - Serial"></p><h3 id='642-parallel'><span>6.4.2 Parallel</span></h3><blockquote><p><span>可以用于新老年代</span></p><p><strong><span>新生代：</span></strong><span>复制算法</span></p><p><strong><span>老年代：</span></strong><span>标记整理算法</span></p></blockquote><blockquote><p><span>The parallel collector is also known as throughput collector, it&#39;s a generational collector similar to the serial collector. The primary difference between the serial and parallel collectors is that the parallel collector has multiple threads that are used to speed up garbage collection</span></p></blockquote><p><img src=".\JavaVirtualMachine.assets\GC - Parallel.png" referrerpolicy="no-referrer" alt="GC - Parallel"></p><h3 id='643-cmsconcurrentmarksweepgc'><span>6.4.3 CMS(ConcurrentMarkSweepGC)</span></h3><blockquote><p><a href='https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/cms.html#concurrent_mark_sweep_cms_collector'><span>Concurrent Mark Sweep (CMS) Collector (oracle.com)</span></a></p><blockquote><p><span>The Concurrent Mark Sweep (CMS) collector is designed for applications that prefer shorter garbage collection pauses and that can afford to share processor resources with the garbage collector while the application is running. </span></p></blockquote><p><span>可以用于新老年代</span></p><p><span>采用标记-清除算法</span></p><p><span>回收过程：</span><a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'><span>Getting Started with the G1 Garbage Collector (oracle.com)</span></a></p><blockquote><ol start='' ><li><span>The Concurrent Mark Sweep (CMS) collector (also referred to as the concurrent low pause collector) collects the tenured generation. It attempts to minimize the pauses due to garbage collection by doing most of the garbage collection work concurrently with the application threads. Normally the concurrent low pause collector does not copy or compact the live objects. A garbage collection is done without moving the live objects. If fragmentation becomes a problem, allocate a larger heap.</span></li></ol></blockquote><blockquote><ol start='2' ><li><strong><span>Note:</span></strong><span> CMS collector on young generation uses the same algorithm as that of the parallel collector.</span></li></ol></blockquote></blockquote><ol start='' ><li><strong><span>初始标记：</span></strong><span>CMS initial mark 标记GC Roots直接关联对象，不用Tracing，速度很快</span></li><li><strong><span>并发标记：</span></strong><span>CMS concurrent mark 进行GC Roots Tracing</span></li><li><strong><span>重新标记：</span></strong><span>CMS remark 修改并发标记因用户程序变动的内容</span></li><li><strong><span>并发清除：</span></strong><span>CMS concurrent sweep 清除不可达对象回收空间，同时有新垃圾产生，留着下次清理称为浮动垃圾</span></li></ol><blockquote><p><strong><span>优缺点：</span></strong></p><ul><li><strong><span>优点：</span></strong><span>并发收集，低停顿</span></li><li><strong><span>缺点：</span></strong><span>产生大量空间碎片，并发阶段会降低吞吐量</span></li></ul></blockquote><p><img src=".\JavaVirtualMachine.assets\GC - CMS.png" referrerpolicy="no-referrer" alt="GC - CMS"></p><h3 id='644-g1garbage-first'><span>6.4.4 G1(Garbage First)</span></h3><blockquote><p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/available-collectors.html#GUID-C7B19628-27BA-4945-9004-EC0F08C76003'><span>Garbage-First (G1) Garbage Collector (oracle.com)</span></a></p><p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html'><span>garbage-first-g1-garbage-collector1</span></a></p><blockquote><p><span>G1 is a mostly concurrent collector. Mostly concurrent collectors perform some expensive work concurrently to the application. This collector is designed to scale from small machines to large multiprocessor machines with a large amount of memory. It provides the capability to meet a pause-time goal with high probability, while achieving high throughput.</span></p><p><span>G1 is selected by default on most hardware and operating system configurations, or can be explicitly enabled using </span><code>-XX:+UseG1GC</code><span> .</span></p></blockquote><p><span>可以用于新老年代</span></p><p><span>回收过程：</span><a href='https://www.oracle.com/technetwork/tutorials/tutorials-1876574.html'><span>Getting Started with the G1 Garbage Collector (oracle.com)</span></a></p></blockquote><ol start='' ><li><strong><span>初始标记（Initial Marking）：</span></strong><span> 标记以下GC Roots能够关联的对象，并且修改TAMS的值，需要暂停用户线程</span></li><li><strong><span>并发标记（Concurrent Marking）：</span></strong><span> 从GC Roots进行可达性分析，找出存活的对象，与用户线程并发执行</span></li><li><strong><span>最终标记（Final Marking）：</span></strong><span> 修正在并发标记阶段因为用户程序的并发执行导致变动的数据，需暂停用户线程</span></li><li><strong><span>筛选回收（Live Data Counting and Evacuation）：</span></strong><span> 对各个Region的回收价值和成本进行排序，根据用户所期望的GC停顿时间制定回收计划</span></li></ol><p><img src=".\JavaVirtualMachine.assets\GC - G1.png" referrerpolicy="no-referrer" alt="GC - G1"></p><p><strong><span>理解：</span></strong></p><ol start='' ><li><p><span>使用G1收集器时，Java堆的内存布局就与其它收集器有很大差别，它将整个Java堆划分为多个大小相等的独立区域（Region），虽然还保留有新生代和老年代的概念，但新生代和老年代不再是物理隔离的了，他们都是一部分Region（不需要连续）的集合。</span></p></li><li><p><span>每个Region大小都是一样的，可以是1M到32M之间的数值，但是必须保证是2的N次幂。</span></p></li><li><p><span>如果对象太大，一个Region放不下（超过Region大小的50%），那么就会直接放到H中</span></p><blockquote><p><span>Humongous objects are objects larger or equal the size of half a region. The current region size is determined ergonomically as described in the </span><a href='https://docs.oracle.com/en/java/javase/17/gctuning/garbage-first-g1-garbage-collector1.html#GUID-082C967F-2DAC-4B59-8A81-0CEC6EEB9016'><span>Ergonomic Defaults for G1 GC</span></a><span> section, unless set using the option.</span><code>-XX:G1HeapRegionSize</code></p></blockquote></li><li><p><span>设置Region大小：</span><code>‐XX:G1HeapRegionSize=M</code></p></li><li><p><span>所谓Garbage‐Frist，其实就是优先回收垃圾最多的Region区域</span></p></li></ol><blockquote><p><span>The young generation contains eden regions (red) and survivor regions (red with &quot;S&quot;). These regions provide the same function as the respective contiguous spaces in other collectors, with the difference that in G1 these regions are typically laid out in a noncontiguous pattern in memory. Old regions (light blue) make up the old generation. Old generation regions may be humongous (light blue with &quot;H&quot;) for objects that span multiple regions.</span></p><p><span>An application always allocates into a young generation, that is, eden regions, with the exception of humongous objects that are directly allocated as belonging to the old generation.</span></p><p><span>年轻一代包含Eden区域（红色）和Survivor区域（红色带“S”）。这些区域提供与其他收集器中各自的连续空间相同的功能，不同之处在于，在 G1 中，这些区域通常在内存中以不连续的模式布局。旧区域（浅蓝色）组成了老一代。对于跨越多个区域的对象，旧一代区域可能是巨大的（浅蓝色带“H”）。</span></p><p><span>应用程序始终分配给年轻一代，即伊甸园区域，但直接分配给属于老一代的巨大对象除外。</span></p></blockquote><p><img src=".\JavaVirtualMachine.assets\grbg_frst_hp.png" referrerpolicy="no-referrer" alt="grbg_frst_hp"></p><h3 id='645-zgc'><span>6.4.5 ZGC</span></h3><blockquote><p><a href='https://docs.oracle.com/en/java/javase/17/gctuning/z-garbage-collector.html'><span>z-garbage-collector</span></a></p><blockquote><p><em><span>The Z Garbage Collector (ZGC)</span></em><span> is a scalable low latency garbage collector. ZGC performs all expensive work concurrently, without stopping the execution of application threads for more than a few milliseconds. It is suitable for applications which require low latency. Pause times are independent of heap size that is being used. ZGC supports heap sizes from 8MB to 16TB.</span></p></blockquote><p><span>Java11引入的垃圾收集器</span></p><p><span>不管是物理上还是逻辑上，ZGC中已经不存在新老年代的概念了</span></p><p><span>会分为一个个page，当进行GC操作时会对page进行压缩，因此没有碎片问题</span></p><p><span>只能在64位的linux上使用，目前用得还比较少</span></p></blockquote><ul><li><span>可以达到10ms以内的停顿时间要求</span></li><li><span>支持TB级别的内存</span></li><li><span>堆内存变大后停顿时间还是在10ms以内</span></li></ul><h2 id='65-垃圾收集器分类'><span>6.5 垃圾收集器分类</span></h2><ul><li><p><span>串行：Serial</span></p><blockquote><p><span>适合内存比较小的嵌入式设备</span></p></blockquote></li><li><p><span>并行：Parallel</span></p><blockquote><p><span>更加关注吞吐量，适合科学计算、后台处理等弱交互场景</span></p></blockquote></li><li><p><span>并发：CMS、G1</span></p><blockquote><p><span>更加关注停顿时间，适合WEB交互场景</span></p></blockquote></li></ul><p><img src=".\JavaVirtualMachine.assets\GC - Selector.png" referrerpolicy="no-referrer" alt="GC - Selector"></p><figure><table><thead><tr><th><span>收集器</span></th><th><span>新老年代</span></th><th><span>串行 / 并行 / 并发</span></th><th><span>STW</span></th><th><span>指令</span></th></tr></thead><tbody><tr><td><strong><span>Serial</span></strong></td><td><span>新生代</span></td><td><span>串行（单线程收集）</span></td><td><span>暂停应用线程</span></td><td>&nbsp;</td></tr><tr><td><strong><span>ParNew</span></strong></td><td><span>新生代</span></td><td><span>并行（多线程收集）</span></td><td><span>暂停应用线程</span></td><td>&nbsp;</td></tr><tr><td><strong><span>Parallel Scavenge</span></strong></td><td><span>新生代（吞吐优先）</span></td><td><span>并行（多线程收集）</span></td><td><span>暂停应用线程</span></td><td><code>-XX:+UseParallelGC</code></td></tr><tr><td><strong><span>CMS</span></strong></td><td><span>老年代（停顿时间优先）</span></td><td><span>并发</span></td><td><span>收集线程与用户线程一起工作</span></td><td><code>-XX:+UseConcMarkSweepGC</code></td></tr><tr><td><strong><span>Serial Old</span></strong></td><td><span>老年代</span></td><td><span>串行（单线程收集）</span></td><td><span>暂停应用线程</span></td><td>&nbsp;</td></tr><tr><td><strong><span>Parallel Old</span></strong></td><td><span>老年代（吞吐优先）</span></td><td><span>并行（多线程收集）</span></td><td><span>暂停应用线程</span></td><td><code>-XX:+UseParallelGC</code></td></tr><tr><td><strong><span>G1</span></strong></td><td><span>新生代 / 老年代</span></td><td><span>并发</span></td><td><span>收集线程与用户线程一起工作</span></td><td><code>-XX:UseG1GC</code></td></tr></tbody></table></figure><h2 id='66-reponsiveness-and-throughput'><span>6.6 Reponsiveness and throughput</span></h2><p><strong><span>停顿时间：</span></strong><span>垃圾收集器进行垃圾回收终端应用执行响应的时间</span></p><p><strong><span>吞吐量：</span></strong><span>运行用户代码时间 / (运行用户代码时间 + 垃圾收集时间)</span></p><h2 id='67-什么时候会发生垃圾收集'><span>6.7 什么时候会发生垃圾收集</span></h2><blockquote><p><span>GC是由JVM自动完成的，根据JVM系统环境而定，所以时机是不确定的。</span></p><p><span>当然，我们是可以手动进行垃圾回收的，比如调用</span><code>System.gc()</code><span>方法通知JVM进行一次垃圾回收，但是具体什么时刻运行也无法控制。</span></p><p><span>也就是说</span><code>System.gc()</code><span>只是通知要回收，什么时候回收由JVM决定。但是不建议手动调用该方法，因为GC消耗的资源比较大。</span></p></blockquote><ol start='' ><li><span>当Eden区或者S区不够用了：Young GC或者Minor GC</span></li><li><span>老年代空间不够用了：Old GC或者Major GC</span></li><li><span>方法区空间不够用了：Metaspace GC</span></li><li><code>System.gc()</code></li></ol><blockquote><p><span>Full GC = Young GC + Old GC + Metaspace GC</span></p></blockquote><h1 id='7-execution-engine'><span>7. Execution Engine</span></h1><blockquote><p><span>User.java源码文件时Java这门高级开发语言，对程序员友好，方便我们开发</span></p><p><span>javac编译器将User.java源码文件编译成class文件（这个编译成为前期编译），交给JVM运行，因为JVM只认识class字节码文件。同时在不同的操作系统上安装对应版本的JDK，里面包含了各自屏蔽操作系统底层细节的JVM，这样同一份class文件就能运行在不同的操作系统平台上，得益于JVM。这也是Write Once，Run Anywhere的原因所在。</span></p><p><span>最终JVM需要把字节码指令转换为机器码，可以理解为0101这样的机器语言，这样才能运行在不同的机器上，那么由字节码转变为机器码的操作，是由谁来完成操作的呢？这就是执行引擎里面的解释执行器和编译器所要做的事情。</span></p></blockquote><p><img src=".\JavaVirtualMachine.assets\Execution Engine.png" referrerpolicy="no-referrer" alt="Execution Engine"></p><h2 id='71-interpreter'><span>7.1 Interpreter</span></h2><blockquote><p><span>解释器逐条把字节码翻译成机器码并执行，跨平台的保证。</span></p><p><span>刚开始执行引擎只采用了解释执行的，但是后来发现某些方法或者代码块被调用执行的特别频繁时，就会把这些代码认定为“热点代码”。</span></p></blockquote><h2 id='72-即时编译器'><span>7.2 即时编译器</span></h2><blockquote><p><span>Just-In-Time compilation(JIT)，即时编译器先将字节码编译成对应平台的可执行文件，运行速度快。</span></p><p><span>即时编译器会把这些热点代码编译成与本地平台关联的机器码，并且进行各层次的优化，保存到内存中。</span></p></blockquote><h3 id='721-c1和c2'><span>7.2.1 C1和C2</span></h3><blockquote><p><span>HotSpot虚拟机里面内置了两个JIT：C1和C2</span></p><blockquote><p><span>C1也称为Client Compiler，适用于执行时间短或者对启动性能有要求的程序</span></p><p><span>C2也称为Server Compiler，适用于执行时间长或者对峰值性能有要求的程序</span></p></blockquote><p><span>Java7开始，HotSpot会使用分层编译的方式</span></p><blockquote><p><span>也就是会结合C1的启动性能优势和C2的峰值性能优势，热点方法会先被C1编译，然后热点方法中的热点会被C2再次编译</span></p></blockquote></blockquote><h3 id='722-aot'><span>7.2.2 AOT</span></h3><blockquote><p><span>在Java9中，引入了AOT(Ahead of Time)编译器</span></p><p><span>即时编译器是在程序运行过程中，将字节码翻译成机器码。而AOT是在程序运行之前，将字节码转换为机器码</span></p><blockquote><p><strong><span>优势 ：</span></strong><span>这样不需要在运行过程中消耗计算机资源来进行即时编译</span></p><p><strong><span>劣势 ：</span></strong><span>AOT 编译无法得知程序运行时的信息，因此也无法进行基于类层次分析的完全虚方法内联，或者基于程序profifile的投机性优化（并非硬性限制，我们可以通过限制运行范围，或者利用上一次运行的程序profifile来绕开这两个限制）</span></p></blockquote></blockquote><h3 id='723-graal-vm'><span>7.2.3 Graal VM</span></h3><blockquote><p><a href='https://www.graalvm.org/'><span>GraalVM</span></a></p><p><span>在Java10中，新的JIT编译器Graal被引入。它是一个以Java为主要编程语言，面向字节码的编译器。跟C++实现的C1和C2相比，模块化更加明显，也更加容易维护。</span></p><p><span>Graal既可以作为动态编译器，在运行时编译热点方法；也可以作为静态编译器，实现AOT编译。</span></p><p><span>除此之外，它还移除了编程语言之间的边界，并且支持通过即时编译技术，将混杂了不同的编程语言的代码编译到同一段二进制码之中，从而实现不同语言之间的无缝切换。</span></p></blockquote><p>&nbsp;</p><blockquote><p><span>Spring Native：</span><a href='https://spring.io/blog/2021/03/11/announcing-spring-native-beta' target='_blank' class='url'>https://spring.io/blog/2021/03/11/announcing-spring-native-beta</a></p><p><span>Dubbo Native：</span><a href='https://dubbo.apache.org/zh/docs/references/graalvm/support-graalvm/' target='_blank' class='url'>https://dubbo.apache.org/zh/docs/references/graalvm/support-graalvm/</a></p></blockquote><h1 id='8-性能优化'><span>8. 性能优化</span></h1><p>&nbsp;</p><p>&nbsp;</p></div></div>
 </body>
 </html>
